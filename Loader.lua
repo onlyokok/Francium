@@ -1,9 +1,10 @@
-local Stem = "https://raw.githubusercontent.com/onlyokok/Sena/main/"
+local Stem = "https://raw.githubusercontent.com/onlyokok/Francium/main/"
 
 local Games = `{Stem}/Games`
 local Modules = `{Stem}/Modules`
 
 local Package = {
+    Title = "Francium",
     Interface = {
         Linoria = loadstring(game:HttpGet(`{Modules}/Interface/Linoria.lua`))(),
         Addons = {
@@ -18,7 +19,7 @@ local Success, Value = pcall(function()
 end)
 
 if Success then
-    loadstring(Value)()["Load"](Package)
+    loadstring(Value)()(Package)
 else
-    loadstring(game:HttpGet(`{Games}/Universal/Main.lua`))(Package)
+    loadstring(game:HttpGet(`{Games}/Universal/Main.lua`))()(Package)
 end
