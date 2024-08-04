@@ -3206,7 +3206,7 @@ function Library:CreateWindow(...)
             local BoxOuter = Library:Create('Frame', {
                 Name = "BoxOuter",
                 BackgroundColor3 = Library.BackgroundColor;
-                BorderColor3 = Library.OutlineColor;
+                BorderColor3 = Library.BackgroundColor;
                 BorderMode = Enum.BorderMode.Inset;
                 Size = UDim2.new(1, 0, 0, 507 + 2);
                 ZIndex = 2;
@@ -3215,13 +3215,13 @@ function Library:CreateWindow(...)
 
             Library:AddToRegistry(BoxOuter, {
                 BackgroundColor3 = 'BackgroundColor';
-                BorderColor3 = 'OutlineColor';
+                BorderColor3 = 'BackgroundColor';
             });
 
             local BoxInner = Library:Create('Frame', {
                 Name = "BoxInner",
                 BackgroundColor3 = Library.BackgroundColor;
-                BorderColor3 = Color3.new(0, 0, 0);
+                BorderColor3 = Library.MainColor;
                 -- BorderMode = Enum.BorderMode.Inset;
                 Size = UDim2.new(1, -2, 1, -2);
                 Position = UDim2.new(0, 1, 0, 1);
@@ -3231,6 +3231,7 @@ function Library:CreateWindow(...)
 
             Library:AddToRegistry(BoxInner, {
                 BackgroundColor3 = 'BackgroundColor';
+                BorderColor3 = 'MainColor';
             });
 
             local Highlight = Library:Create('Frame', {
