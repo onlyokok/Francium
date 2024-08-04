@@ -5,9 +5,9 @@ function Main:Construct(Package)
         local Section = nil
 
         if Side == "Left" then
-            Section = Tabs.Main:AddLeftGroupbox("Movement")
+            Section = self.Tab:AddLeftGroupbox("Movement")
         elseif Side == "Right" then
-            Section = Tabs.Main:AddRightGroupbox("Movement")
+            Section = self.Tab:AddRightGroupbox("Movement")
         end
 
         Section:AddToggle("Fly", {
