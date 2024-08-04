@@ -1,60 +1,25 @@
 local Main = {}
 
 function Main:Construct(Package)
-    local function CreateCharacterSection(Side)
+    local function CreateMovementSection(Side)
         local Section = nil
-    
+
         if Side == "Left" then
-            Section = self.Tab:AddLeftGroupbox("Character")
+            Section = Tabs.Main:AddLeftGroupbox("Movement")
         elseif Side == "Right" then
-            Section = self.Tab:AddRightGroupbox("Character")
+            Section = Tabs.Main:AddRightGroupbox("Movement")
         end
 
         Section:AddToggle("Fly", {
             Text = "Fly",
             Default = false,
         }):AddKeyPicker("FlyKeyPicker", {
-            Default = "J",
+            Default = "None",
             SyncToggleState = true,
             Mode = "Toggle",
             Text = "Fly",
             NoUI = false,
         })
-
-        Section:AddToggle("WalkSpeed", {
-            Text = "Walk Speed",
-            Default = false,
-        }):AddKeyPicker('WalkSpeedKeyPicker', {
-            Default = 'G',
-            SyncToggleState = true,
-            Mode = 'Toggle',
-            Text = 'Walk Speed',
-            NoUI = false,
-        })
-
-        Section:AddToggle("JumpPower", {
-            Text = "Jump Power",
-            Default = false,
-        }):AddKeyPicker("JumpPowerKeyPicker", {
-            Default = "H",
-            SyncToggleState = true,
-            Mode = "Toggle",
-            Text = "Jump Power",
-            NoUI = false,
-        })
-
-        Section:AddToggle("SafeMode", {
-            Text = "Safe Mode",
-            Default = false,
-        }):AddKeyPicker("SafeModeKeyPicker", {
-            Default = "L",
-            SyncToggleState = true,
-            Mode = "Toggle",
-            Text = "Safe Mode",
-            NoUI = false,
-        })
-
-        Section:AddDivider()
 
         Section:AddSlider("FlySpeed", {
             Text = "Fly Speed",
@@ -67,15 +32,26 @@ function Main:Construct(Package)
 
         Section:AddSlider("FallSpeed", {
             Text = "Fall Speed",
-            Default = 50,
-            Min = 50,
+            Default = 25,
+            Min = 25,
             Max = 200,
             Rounding = 0,
             Compact = false,
         })
 
+        Section:AddToggle("WalkSpeed", {
+            Text = "Walk Speed",
+            Default = false,
+        }):AddKeyPicker('WalkSpeedKeyPicker', {
+            Default = 'None',
+            SyncToggleState = true,
+            Mode = 'Toggle',
+            Text = 'Walk Speed',
+            NoUI = false,
+        })
+
         Section:AddSlider('WalkSpeedValue', {
-            Text = 'Value',
+            Text = 'Walk Speed Value',
             Default = 25,
             Min = 5,
             Max = 200,
@@ -83,8 +59,19 @@ function Main:Construct(Package)
             Compact = false,
         })
 
+        Section:AddToggle("JumpPower", {
+            Text = "Jump Power",
+            Default = false,
+        }):AddKeyPicker("JumpPowerKeyPicker", {
+            Default = "None",
+            SyncToggleState = true,
+            Mode = "Toggle",
+            Text = "Jump Power",
+            NoUI = false,
+        })
+
         Section:AddSlider("JumpPowerValue", {
-            Text = "Value",
+            Text = "Jump Power Value",
             Default = 50,
             Min = 50,
             Max = 200,
@@ -96,7 +83,19 @@ function Main:Construct(Package)
             Values = {"Velocity", "Humanoid"},
             Default = 1,
             Multi = false,
-            Text = "Method",
+            Text = "Jump Power Method",
+        })
+
+        Section:AddToggle("SafeMode", {
+            Text = "Safe Mode",
+            Tooltip = "Disables any active movement options",
+            Default = false,
+        }):AddKeyPicker("SafeModeKeyPicker", {
+            Default = "None",
+            SyncToggleState = true,
+            Mode = "Toggle",
+            Text = "Safe Mode",
+            NoUI = false,
         })
 
         Package.Interface.Linoria:GiveTask(task.spawn(function()
@@ -162,7 +161,7 @@ function Main:Construct(Package)
         end))
 
         Section:AddLabel("Teleport To Ground"):AddKeyPicker("TeleportToGroundKeyPicker", {
-            Default = "K",
+            Default = "None",
             SyncToggleState = true,
             Mode = "Toggle",
             Text = "Teleport To Ground",
@@ -183,7 +182,7 @@ function Main:Construct(Package)
         return Section
     end
 
-    local CharacterSection = CreateCharacterSection("Right")
+    local Movement = CreateMovementSection("Left")
 end
 
 function Main:Setup(Package, Window)
