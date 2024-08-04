@@ -3204,7 +3204,6 @@ function Library:CreateWindow(...)
             local Groupbox = {};
 
             local BoxOuter = Library:Create('Frame', {
-                Name = "BoxOuter",
                 BackgroundColor3 = Library.BackgroundColor;
                 BorderColor3 = Library.BackgroundColor;
                 BorderMode = Enum.BorderMode.Inset;
@@ -3219,7 +3218,6 @@ function Library:CreateWindow(...)
             });
 
             local BoxInner = Library:Create('Frame', {
-                Name = "BoxInner",
                 BackgroundColor3 = Library.BackgroundColor;
                 BorderColor3 = Library.MainColor;
                 -- BorderMode = Enum.BorderMode.Inset;
