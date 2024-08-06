@@ -623,7 +623,20 @@ function InstanceObject:Render()
 		visible = false;
 	end
 
-	text.Visible = options.enabled and EspInterface.sharedSettings.enabled;
+    if EspInterface.sharedSettings.enabled then
+        if options.enabled then
+            if visible then
+                text.Visible = true
+            else
+                text.Visible = false
+            end
+        else
+            text.Visible = false
+        end
+    else
+        text.Visible = false
+    end
+
 	if text.Visible then
 		text.Position = position;
 		text.Color = options.textColor[1];
