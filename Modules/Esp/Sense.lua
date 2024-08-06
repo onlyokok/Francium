@@ -616,7 +616,7 @@ function InstanceObject:Render()
 
 	local text = self.text;
 	local options = self.options;
-	if not options.enabled or EspInterface.sharedSettings.enabled then
+	if not options.enabled or not EspInterface.sharedSettings.enabled then
 		text.Visible = false;
 		return;
 	end
