@@ -201,7 +201,7 @@ function EspObject:Update()
 	self.health, self.maxHealth = interface.getHealth(self.player);
 	self.weapon = interface.getWeapon(self.player);
 	self.enabled = self.options.enabled and self.character and not
-		(#interface.whitelist > 0 and not find(interface.whitelist, self.player.UserId));
+		(#interface.whitelist > 0 and not find(interface.whitelist, self.player.UserId)) and interface.sharedSettings.enabled;
 
 	local head = self.enabled and findFirstChild(self.character, "Head");
 	if not head then
@@ -447,7 +447,7 @@ function ChamObject:Update()
 	local character = interface.getCharacter(self.player);
 	local options = interface.teamSettings[interface.isFriendly(self.player) and "friendly" or "enemy"];
 	local enabled = options.enabled and character and not
-		(#interface.whitelist > 0 and not find(interface.whitelist, self.player.UserId));
+		(#interface.whitelist > 0 and not find(interface.whitelist, self.player.UserId)) and interface.sharedSettings.enabled;
 
 	highlight.Enabled = enabled and options.chams;
 	if highlight.Enabled then
@@ -505,7 +505,7 @@ function InstanceObject:Render()
 
 	local text = self.text;
 	local options = self.options;
-	if not options.enabled then
+	if not options.enabled or self.interface.sharedSettings.enabled then
 		text.Visible = false;
 		return;
 	end
@@ -538,6 +538,7 @@ local EspInterface = {
 	_objectCache = {},
 	whitelist = {},
 	sharedSettings = {
+        enabled = true,
 		textSize = 13,
 		textFont = 2,
 		limitDistance = false,
