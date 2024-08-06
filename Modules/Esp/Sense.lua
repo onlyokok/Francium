@@ -116,7 +116,7 @@ local EspInterface = {
 	_objectCache = {},
 	whitelist = {},
 	sharedSettings = {
-        enabled = true,
+        enabled = false,
 		textSize = 13,
 		textFont = 2,
 		limitDistance = false,
@@ -125,7 +125,7 @@ local EspInterface = {
 	},
 	teamSettings = {
 		enemy = {
-			enabled = false,
+			enabled = true,
 			box = false,
 			boxColor = { Color3.new(1,0,0), 1 },
 			boxOutline = true,
@@ -172,7 +172,7 @@ local EspInterface = {
 			chamsOutlineColor = { Color3.new(1,0,0), 0 },
 		},
 		friendly = {
-			enabled = false,
+			enabled = true,
 			box = false,
 			boxColor = { Color3.new(0,1,0), 1 },
 			boxOutline = true,
@@ -312,7 +312,7 @@ function EspObject:Update()
 	self.health, self.maxHealth = interface.getHealth(self.player);
 	self.weapon = interface.getWeapon(self.player);
 	self.enabled = self.options.enabled and self.character and not
-		(#interface.whitelist > 0 and not find(interface.whitelist, self.player.UserId)) and interface.sharedSettings.enabled;
+		(#interface.whitelist > 0 and not find(interface.whitelist, self.player.UserId));
 
 	local head = self.enabled and findFirstChild(self.character, "Head");
 	if not head then
@@ -364,7 +364,7 @@ function EspObject:Render()
 	local options = self.options;
 	local corners = self.corners;
 
-	visible.box.Visible = enabled and onScreen and options.box;
+	visible.box.Visible = enabled and onScreen and options.box and EspInterface.sharedSettings.enabled;
 	visible.boxOutline.Visible = visible.box.Visible and options.boxOutline;
 	if visible.box.Visible then
 		local box = visible.box;
@@ -380,7 +380,7 @@ function EspObject:Render()
 		boxOutline.Transparency = options.boxOutlineColor[2];
 	end
 
-	visible.boxFill.Visible = enabled and onScreen and options.boxFill;
+	visible.boxFill.Visible = enabled and onScreen and options.boxFill and EspInterface.sharedSettings.enabled;
 	if visible.boxFill.Visible then
 		local boxFill = visible.boxFill;
 		boxFill.Position = corners.topLeft;
@@ -389,7 +389,7 @@ function EspObject:Render()
 		boxFill.Transparency = options.boxFillColor[2];
 	end
 
-	visible.healthBar.Visible = enabled and onScreen and options.healthBar;
+	visible.healthBar.Visible = enabled and onScreen and options.healthBar and EspInterface.sharedSettings.enabled;
 	visible.healthBarOutline.Visible = visible.healthBar.Visible and options.healthBarOutline;
 	if visible.healthBar.Visible then
 		local barFrom = corners.topLeft - HEALTH_BAR_OFFSET;
@@ -407,7 +407,7 @@ function EspObject:Render()
 		healthBarOutline.Transparency = options.healthBarOutlineColor[2];
 	end
 
-	visible.healthText.Visible = enabled and onScreen and options.healthText;
+	visible.healthText.Visible = enabled and onScreen and options.healthText and EspInterface.sharedSettings.enabled;
 	if visible.healthText.Visible then
 		local barFrom = corners.topLeft - HEALTH_BAR_OFFSET;
 		local barTo = corners.bottomLeft - HEALTH_BAR_OFFSET;
@@ -423,7 +423,7 @@ function EspObject:Render()
 		healthText.Position = lerp2(barTo, barFrom, self.health/self.maxHealth) - healthText.TextBounds*0.5 - HEALTH_TEXT_OFFSET;
 	end
 
-	visible.name.Visible = enabled and onScreen and options.name;
+	visible.name.Visible = enabled and onScreen and options.name and EspInterface.sharedSettings.enabled;
 	if visible.name.Visible then
 		local name = visible.name;
 		name.Size = interface.sharedSettings.textSize;
@@ -435,7 +435,7 @@ function EspObject:Render()
 		name.Position = (corners.topLeft + corners.topRight)*0.5 - Vector2.yAxis*name.TextBounds.Y - NAME_OFFSET;
 	end
 
-	visible.distance.Visible = enabled and onScreen and self.distance and options.distance;
+	visible.distance.Visible = enabled and onScreen and self.distance and options.distance and EspInterface.sharedSettings.enabled;
 	if visible.distance.Visible then
 		local distance = visible.distance;
 		distance.Text = round(self.distance) .. " studs";
@@ -448,7 +448,7 @@ function EspObject:Render()
 		distance.Position = (corners.bottomLeft + corners.bottomRight)*0.5 + DISTANCE_OFFSET;
 	end
 
-	visible.weapon.Visible = enabled and onScreen and options.weapon;
+	visible.weapon.Visible = enabled and onScreen and options.weapon and EspInterface.sharedSettings.enabled;
 	if visible.weapon.Visible then
 		local weapon = visible.weapon;
 		weapon.Text = self.weapon;
@@ -463,7 +463,7 @@ function EspObject:Render()
 			(visible.distance.Visible and DISTANCE_OFFSET + Vector2.yAxis*visible.distance.TextBounds.Y or Vector2.zero);
 	end
 
-	visible.tracer.Visible = enabled and onScreen and options.tracer;
+	visible.tracer.Visible = enabled and onScreen and options.tracer and EspInterface.sharedSettings.enabled;
 	visible.tracerOutline.Visible = visible.tracer.Visible and options.tracerOutline;
 	if visible.tracer.Visible then
 		local tracer = visible.tracer;
@@ -500,7 +500,7 @@ function EspObject:Render()
 		arrowOutline.Transparency = options.offScreenArrowOutlineColor[2];
 	end
 
-	local box3dEnabled = enabled and onScreen and options.box3d;
+	local box3dEnabled = enabled and onScreen and options.box3d and EspInterface.sharedSettings.enabled;
 	for i = 1, #box3d do
 		local face = box3d[i];
 		for i2 = 1, #face do
@@ -558,9 +558,9 @@ function ChamObject:Update()
 	local character = interface.getCharacter(self.player);
 	local options = interface.teamSettings[interface.isFriendly(self.player) and "friendly" or "enemy"];
 	local enabled = options.enabled and character and not
-		(#interface.whitelist > 0 and not find(interface.whitelist, self.player.UserId)) and interface.sharedSettings.enabled;
+		(#interface.whitelist > 0 and not find(interface.whitelist, self.player.UserId));
 
-	highlight.Enabled = enabled and options.chams;
+	highlight.Enabled = enabled and options.chams and EspInterface.sharedSettings.enabled;
 	if highlight.Enabled then
 		highlight.Adornee = character;
 		highlight.FillColor = parseColor(self, options.chamsFillColor[1]);
@@ -623,20 +623,7 @@ function InstanceObject:Render()
 		visible = false;
 	end
 
-    if EspInterface.sharedSettings.enabled then
-        if options.enabled then
-            if visible then
-                text.Visible = true
-            else
-                text.Visible = false
-            end
-        else
-            text.Visible = false
-        end
-    else
-        text.Visible = false
-    end
-
+	text.Visible = visible and EspInterface.sharedSettings.enabled and options.enabled
 	if text.Visible then
 		text.Position = position;
 		text.Color = options.textColor[1];
