@@ -643,8 +643,8 @@ function InstanceObject:Render()
 		text.Transparency = options.textColor[2];
 		text.Outline = options.textOutline;
 		text.OutlineColor = options.textOutlineColor;
-		text.Size = options.textSize;
-		text.Font = options.textFont;
+		text.Size = EspInterface.sharedSettings.textSize;
+		text.Font = EspInterface.sharedSettings.textFont;
 		text.Text = options.text
 			:gsub("{name}", instance.Name)
 			:gsub("{distance}", round(depth))
