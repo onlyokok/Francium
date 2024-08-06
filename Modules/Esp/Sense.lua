@@ -616,10 +616,6 @@ function InstanceObject:Render()
 
 	local text = self.text;
 	local options = self.options;
-	if not options.enabled or not EspInterface.sharedSettings.enabled then
-		text.Visible = false;
-		return;
-	end
 
 	local world = getPivot(instance).Position;
 	local position, visible, depth = worldToScreen(world);
@@ -627,7 +623,7 @@ function InstanceObject:Render()
 		visible = false;
 	end
 
-	text.Visible = visible;
+	text.Visible = options.enabled and EspInterface.sharedSettings.enabled;
 	if text.Visible then
 		text.Position = position;
 		text.Color = options.textColor[1];
