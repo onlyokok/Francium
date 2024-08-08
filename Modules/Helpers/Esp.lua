@@ -16,7 +16,7 @@ local Esp = {
         HealthText = true,
         HealthTextColor = Color3.fromRGB(0, 255, 0),
         TextFont = 3,
-        TextSize = 10
+        TextSize = 12
     },
     Groups = {},
     Cache = {}

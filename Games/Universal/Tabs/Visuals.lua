@@ -85,7 +85,7 @@ function Visuals:Construct(Package)
     
         Section:AddSlider("EspTextSize", {
             Text = "Text Size",
-            Default = 10,
+            Default = 12,
             Min = 10,
             Max = 20,
             Rounding = 0,
@@ -116,20 +116,6 @@ function Visuals:Construct(Package)
             Default = true,
             Callback = function(Value)
                 Package.Helpers.Esp.Settings.ShowDistance = Value
-            end
-        })
-    
-        Section:AddToggle("EspInfo", {
-            Text = "Info",
-            Default = true,
-            Callback = function(Value)
-                Package.Helpers.Esp.Settings.Misc = Value
-            end
-        }):AddColorPicker("EspInfoColorPicker", {
-            Default = Color3.new(1, 1, 1),
-            Title = "Info Color",
-            Callback = function(Value)
-                Package.Helpers.Esp.Settings.MiscColor = Value
             end
         })
     
