@@ -375,9 +375,52 @@ function Main:Construct(Package)
         end
     end))
 
-    local misc = self.Tab:AddRightGroupbox("misc")
+    local Misc = self.Tab:AddRightGroupbox("misc")
 
-    
+    local WantedFunctions = {
+        "S_Take",
+        "Fall"
+    }
+
+    local Functions = {}
+
+    for _,v in next, getgc(false) do
+        if type(v) == "function" then
+            local info = getinfo(v)
+
+            if info.name ~= nil then
+                if table.find(WantedFunctions, info.name) then
+                    Functions[info.name] = v
+                end
+            end
+        end
+    end
+
+    Aimbot:AddToggle("NoFallDamage", {
+        Text = "no fall damage",
+        Default = false,
+    })
+
+    local Fall; Fall = hookfunction(Functions.Fall, function(...)
+        if Toggles.NoFallDamage.Value then
+            return
+        end
+
+        return Fall(...)
+    end)
+
+    Aimbot:AddToggle("NoStaminaDrain", {
+        Text = "no stamina drain",
+        Default = false,
+    })
+
+    local S_Take; S_Take = hookfunction(Functions.S_Take, function(...)
+        if Toggles.NoStaminaDrain.Value then
+            return
+        end
+
+        return S_Take(...)
+    end)
 end
 
 function Main:Setup(Package, Window)
