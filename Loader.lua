@@ -1,4 +1,4 @@
-local Stem = "https://raw.githubusercontent.com/onlyokok/Francium/main/"
+local Stem = "https://raw.githubusercontent.com/onlyokok/Francium/main"
 
 local Games = `{Stem}/Games`
 local Modules = `{Stem}/Modules`
@@ -22,7 +22,5 @@ local Success, Value = pcall(function()
 end)
 
 if Success then
-    loadstring(Value)()(Package)
-else
-    loadstring(game:HttpGet(`{Games}/Universal/Main.lua`))()(Package)
+    loadstring(Value)()({})
 end
