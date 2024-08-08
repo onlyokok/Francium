@@ -316,6 +316,8 @@ function Main:Construct(Package)
                             Line.Visible = true
                             Line.From = Vector2.new(MouseLocation.X, MouseLocation.Y)
                             Line.To = Vector2.new(Vector.X, Vector.Y)
+                        else
+                            Line.Visible = false
                         end
                     end
                 else
