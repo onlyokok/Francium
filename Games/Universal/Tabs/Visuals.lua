@@ -172,6 +172,8 @@ function Visuals:Construct(Package)
         return Section
     end
 
+    MakeOptionsSection("Left")
+
     for _,Player in next, game.Players:GetPlayers() do
         if Player ~= game.Players.LocalPlayer then
             Package.Helpers.Esp.New(Player)
