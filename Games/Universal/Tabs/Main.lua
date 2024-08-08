@@ -310,6 +310,8 @@ function Main:Construct(Package)
                     Fov.Radius = Options.AimbotFovSize.Value
                     Fov.Color = Options.AimbotColorPicker.Value
                     Fov.Position = Vector2.new(MouseLocation.X, MouseLocation.Y)
+                else
+                    Fov.Visible = false
                 end
             else
                 Fov.Visible = false
