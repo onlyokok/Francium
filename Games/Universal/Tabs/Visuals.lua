@@ -145,20 +145,6 @@ function Visuals:Construct(Package)
         end
     })
 
-    do
-        local World = self.Tab:AddRightGroupbox("world")
-
-        World:AddToggle("Ambient", {
-            Text = "ambient",
-            Default = false,
-        }):AddColorPicker("AmbientColorPicker", {
-            Default = Color3.new(1, 1, 1),
-            Title = "color",
-        })
-
-        print(Options.AmbientColorPicker, Options.AmbientColorPicker.Value)
-    end
-
     for _,Player in next, game.Players:GetPlayers() do
         if Player ~= game.Players.LocalPlayer then
             Package.Helpers.Esp.New(Player)
