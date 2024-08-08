@@ -170,7 +170,11 @@ function Visuals:Construct(Package)
 
     Package.Interface.Linoria:GiveTask(task.spawn(function()
         while task.wait(0.01) do
-            ColorCorrectionEffect.TintColor = Toggles.Ambient.Value and Options.AmbientColorPicker.Value or Color3.fromRGB(255, 255, 255)
+            if Toggles.Ambient.Value then
+                ColorCorrectionEffect.TintColor = Options.AmbientColorPicker.Value
+            else
+                ColorCorrectionEffect.TintColor = Color3.fromRGB(255, 255, 255)
+            end
         end
     end))
 
