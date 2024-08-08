@@ -209,8 +209,8 @@ function Main:Construct(Package)
         Title = "color",
     })
 
-    Aimbot:AddToggle("AimbotSnapLines", {
-        Text = "snap lines",
+    Aimbot:AddToggle("AimbotSnapLine", {
+        Text = "snap line",
         Default = false,
     })
 
