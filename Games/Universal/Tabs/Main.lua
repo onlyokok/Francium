@@ -298,7 +298,7 @@ function Main:Construct(Package)
 
                     if BodyPart then
                         if Toggles.AimbotSmoothing.Value then
-                            game:GetService("TweenService"):Create(workspace.CurrentCamera, TweenInfo.new(Options.AimbotSmoothingValue), {CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, BodyPart.Position)}):Play()
+                            game:GetService("TweenService"):Create(workspace.CurrentCamera, TweenInfo.new(Options.AimbotSmoothingValue.Value / 10), {CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, BodyPart.Position)}):Play()
                         else
                             workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, BodyPart.Position)
                         end
