@@ -254,7 +254,7 @@ function Main:Construct(Package)
     })
 
     Aimbot:AddSlider("AimbotFovSides", {
-        Text = "fov size",
+        Text = "fov sides",
         Default = 64,
         Min = 3,
         Max = 64,
