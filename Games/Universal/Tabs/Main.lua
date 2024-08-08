@@ -318,6 +318,8 @@ function Main:Construct(Package)
                             Line.To = Vector2.new(Vector.X, Vector.Y)
                         end
                     end
+                else
+                    Line.Visible = false
                 end
 
                 if Toggles.AimbotShowFov.Value then
