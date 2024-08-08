@@ -276,10 +276,10 @@ function Main:Construct(Package)
         for _,Player in next, game.Players:GetPlayers() do
             if Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and Player.Character:FindFirstChild("Humanoid") and Player.Character:FindFirstChild("Humanoid").Health > 0 then
                 local CurrentCamera = workspace.CurrentCamera
-                local Mouse = game.Players.LocalPlayer:GetMouse()
+                local MouseLocation = game:GetService("UserInputService"):GetMouseLocation()
 
                 local Vector, _ = CurrentCamera:WorldToViewportPoint(Player.Character:GetPivot().Position)
-                local Magnitude = (Vector2.new(Mouse.X, Mouse.Y) - Vector2.new(Vector.X, Vector.Y)).Magnitude
+                local Magnitude = (Vector2.new(MouseLocation.X, MouseLocation.Y) - Vector2.new(Vector.X, Vector.Y)).Magnitude
 
                 if Magnitude < ClosestDistance and Magnitude <= Options.AimbotFovSize.Value then
                     ClosestPlayer = Player
@@ -300,7 +300,7 @@ function Main:Construct(Package)
         while task.wait() do
             if Toggles.Aimbot.Value then
                 local Target = GetAimbotTarget()
-                local Mouse = game.Players.LocalPlayer:GetMouse()
+                local MouseLocation = game:GetService("UserInputService"):GetMouseLocation()
 
                 if Target then
                     local BodyPart = Target:FindFirstChild(BodyParts[Options.AimbotBodyPart.Value])
@@ -319,7 +319,7 @@ function Main:Construct(Package)
                     Fov.Radius = Options.AimbotFovSize.Value
                     Fov.NumSides = Options.AimbotFovSize.Value
                     Fov.Color = Options.AimbotColorPicker.Value
-                    Fov.Position = Vector2.new(Mouse.X, Mouse.Y)
+                    Fov.Position = Vector2.new(MouseLocation.X, MouseLocation.Y)
                 end
             else
                 Fov.Visible = false
