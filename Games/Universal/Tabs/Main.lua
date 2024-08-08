@@ -323,10 +323,18 @@ function Main:Construct(Package)
                     local BodyPart = Target.Character:FindFirstChild(BodyParts[Options.AimbotBodyPart.Value])
 
                     if BodyPart then
-                        if Toggles.AimbotSmoothing.Value then
-                            game:GetService("TweenService"):Create(workspace.CurrentCamera, TweenInfo.new(Options.AimbotSmoothingValue.Value / 20), {CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, BodyPart.Position)}):Play()
+                        if Options.AimbotCheckIfScoping.Value and game:GetService("UserInputService"):IsMouseButtonPressed(Enum.UserInputType.MouseButton2) then
+                            if Toggles.AimbotSmoothing.Value then
+                                game:GetService("TweenService"):Create(workspace.CurrentCamera, TweenInfo.new(Options.AimbotSmoothingValue.Value / 20), {CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, BodyPart.Position)}):Play()
+                            else
+                                workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, BodyPart.Position)
+                            end
                         else
-                            workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, BodyPart.Position)
+                            if Toggles.AimbotSmoothing.Value then
+                                game:GetService("TweenService"):Create(workspace.CurrentCamera, TweenInfo.new(Options.AimbotSmoothingValue.Value / 20), {CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, BodyPart.Position)}):Play()
+                            else
+                                workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, BodyPart.Position)
+                            end
                         end
 
                         if Toggles.AimbotSnapLine.Value then
