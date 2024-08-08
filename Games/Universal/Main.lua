@@ -1,10 +1,10 @@
 return function(Package)
-    local Stem = `https://raw.githubusercontent.com/onlyokok/Francium/main/Games/{game.PlaceId}`
+    local Stem = `https://raw.githubusercontent.com/onlyokok/Francium/main/Games/Universal`
     local Leaf = `{Stem}/Tabs`
 
     local Window = Package.Interface.Linoria:CreateWindow({
         ["Title"] = Package.Title,
-        ["Size"] = UDim2.fromOffset(550, 580),
+        ["Size"] = UDim2.fromOffset(550, 600),
         ["Center"] = true,
         ["AutoShow"] = true,
         ["TabPadding"] = 8,

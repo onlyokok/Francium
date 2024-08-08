@@ -4,7 +4,7 @@ return function(Package)
 
     local Window = Package.Interface.Linoria:CreateWindow({
         ["Title"] = Package.Title,
-        ["Size"] = UDim2.fromOffset(550, 580),
+        ["Size"] = UDim2.fromOffset(550, 600),
         ["Center"] = true,
         ["AutoShow"] = true,
         ["TabPadding"] = 8,
