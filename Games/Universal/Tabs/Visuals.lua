@@ -85,7 +85,33 @@ function Visuals:Construct(Package)
         end
     })
 
-    local Players = self.Tab:AddLeftGroupbox("players")
+    local World = self.Tab:AddLeftGroupbox("world")
+
+    World:AddToggle("FieldOfView", {
+        Text = "field of view",
+        Default = false,
+    })
+
+    World:AddSlider("FieldOfViewValue", {
+        Text = "value",
+        Default = 70,
+        Min = 70,
+        Max = 120,
+        Rounding = 0,
+        Compact = false,
+    })
+
+    Package.Interface.Linoria:GiveTask(task.spawn(function()
+        while task.wait() do
+            if Toggles.FieldOfView.Value then
+                workspace.CurrentCamera.FieldOfView = Options.FieldOfViewValue.Value
+            else
+                workspace.CurrentCamera.FieldOfView = 70
+            end
+        end
+    end))
+
+    local Players = self.Tab:AddRightGroupbox("players")
 
     Players:AddToggle("EspName", {
         Text = "name",
