@@ -165,15 +165,8 @@ function Visuals:Construct(Package)
         Title = "World Color ColorPicker",
     })
 
-    Package.Interface.Linoria:GiveTask(task.spawn(function()
-        while task.wait() do
-            if Toggles.WorldColor.Value then
-                ColorCorrection.TintColor = Options.WorldColorValue.Value
-            else
-                ColorCorrection.TintColor = Color3.new(1, 1, 1)
-            end
-        end
-    end))
+    print(Toggles.WorldColor)
+    print(Options.WorldColorValue)
 
     for _,Player in next, game.Players:GetPlayers() do
         if Player ~= game.Players.LocalPlayer then
