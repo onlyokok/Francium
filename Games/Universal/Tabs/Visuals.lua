@@ -9,3 +9,5 @@ function Visuals:Setup(Package, Window)
 
     self:Construct(Package)
 end
+
+return Visuals
