@@ -153,6 +153,9 @@ function Visuals:Construct(Package)
     }):AddColorPicker("AmbientColorPicker", {
         Default = Color3.new(1, 1, 1),
         Title = "color",
+        Callback = function(Value)
+            print(Value)
+        end
     })
 
     Options.AmbientColorPicker:OnChanged(function()
