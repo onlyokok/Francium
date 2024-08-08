@@ -28,10 +28,6 @@ function Settings:Construct(Package)
         Package.Interface.Linoria:SetWatermark(`{Options.NameChange.Value} | user`)
     end)
 
-    Other:AddButton("rejoin", function()
-        game:GetService("TeleportService"):Teleport(game.PlaceId, game.Players.LocalPlayer)
-    end)
-
     Package.Interface.Linoria:SetWatermark(`{Package.Title} | user`)
 
     Package.Interface.Linoria.KeybindFrame.Visible = Toggles.ShowKeybinds.Value
