@@ -9,7 +9,7 @@ function Visuals:Construct(Package)
         end
     end
 
-    local Options = MakeSection("options", Side)
+    local Options = MakeSection("options", "Left")
 
     Options:AddToggle('EspEnabled', {
         Text = 'enabled',
