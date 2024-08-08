@@ -253,20 +253,11 @@ function Main:Construct(Package)
         Compact = false,
     })
 
-    Aimbot:AddSlider("AimbotFovSides", {
-        Text = "fov sides",
-        Default = 64,
-        Min = 3,
-        Max = 64,
-        Rounding = 0,
-        Compact = false,
-    })
-
     local Fov = Drawing.new("Circle")
     Fov.Filled = false
     Fov.Thickness = 1
     Fov.Radius = Options.AimbotFovSize.Value
-    Fov.NumSides = Options.AimbotFovSize.Value
+    Fov.NumSides = 64
     Fov.Color = Options.AimbotColorPicker.Value
 
     local function GetAimbotTarget()
@@ -303,7 +294,7 @@ function Main:Construct(Package)
                 local MouseLocation = game:GetService("UserInputService"):GetMouseLocation()
 
                 if Target then
-                    local BodyPart = Target:FindFirstChild(BodyParts[Options.AimbotBodyPart.Value])
+                    local BodyPart = Target.Character:FindFirstChild(BodyParts[Options.AimbotBodyPart.Value])
 
                     if BodyPart then
                         if Toggles.AimbotSmoothing.Value then
@@ -317,7 +308,6 @@ function Main:Construct(Package)
                 if Toggles.AimbotShowFov.Value then
                     Fov.Visible = true
                     Fov.Radius = Options.AimbotFovSize.Value
-                    Fov.NumSides = Options.AimbotFovSize.Value
                     Fov.Color = Options.AimbotColorPicker.Value
                     Fov.Position = Vector2.new(MouseLocation.X, MouseLocation.Y)
                 end
