@@ -171,14 +171,18 @@ function Visuals:Construct(Package)
         Compact = false,
     })
 
+    local Index; Index = hookmetamethod(game, "__index", function(self, Property)
+        if tostring(self):find("Camera") and Property == "FieldOfView" then
+            if Toggles.FieldOfView.Value then
+                return Options.FieldOfViewValue.Value
+            end
+        end
+
+        return Index(self, Property)
+    end)
+
     Package.Interface.Linoria:GiveTask(task.spawn(function()
         while task.wait() do
-            if Toggles.FieldOfView.Value then
-                workspace.CurrentCamera.FieldOfView = Options.FieldOfViewValue.Value
-            else
-                workspace.CurrentCamera.FieldOfView = 70
-            end
-
             if Toggles.Ambient.Value then
                 ColorCorrection.TintColor = Options.AmbientColorPicker.Value
             else
