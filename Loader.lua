@@ -5,6 +5,9 @@ local Modules = `{Stem}/Modules`
 
 local Package = {
     Title = "Francium",
+    Helpers = {
+        Esp = loadstring(game:HttpGet(`{Modules}/Helpers/Esp.lua`))(),
+    },
     Interface = {
         Linoria = loadstring(game:HttpGet(`{Modules}/Interface/Linoria.lua`))(),
         Addons = {
