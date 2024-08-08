@@ -191,7 +191,134 @@ function Main:Construct(Package)
 
     local Aimbot = MakeSection("aimbot", "Right")
 
+    Aimbot:AddToggle("Aimbot", {
+        Text = "aimbot",
+        Default = false,
+    })
+    
+    Toggles.Aimbot:AddKeyPicker("AimbotKeyPicker", {
+        Default = "None",
+        SyncToggleState = true,
+        Mode = "Toggle",
+        Text = "aimbot",
+        NoUI = false,
+    })
 
+    Toggles.Aimbot:AddColorPicker("AimbotColorPicker", {
+        Default = Color3.fromRGB(255, 255, 255),
+        Title = "color",
+    })
+
+    Aimbot:AddToggle("AimbotSnapLines", {
+        Text = "snap lines",
+        Default = false,
+    })
+
+    Aimbot:AddDropdown("AimbotBodyPart", {
+        Values = {"head", "humanoidrootpart"},
+        Default = 1,
+        Multi = false,
+        Text = "body part",
+    })
+
+    Aimbot:AddDivider()
+
+    Aimbot:AddToggle("AimbotSmoothing", {
+        Text = "smoothing",
+        Default = false,
+    })
+
+    Aimbot:AddSlider("AimbotSmoothingValue", {
+        Text = "value",
+        Default = 1,
+        Min = 1,
+        Max = 10,
+        Rounding = 0,
+        Compact = false,
+    })
+
+    Aimbot:AddDivider()
+
+    Aimbot:AddToggle("AimbotShowFov", {
+        Text = "show fov",
+        Default = false,
+    })
+
+    Aimbot:AddSlider("AimbotFovSize", {
+        Text = "fov size",
+        Default = 50,
+        Min = 50,
+        Max = 200,
+        Rounding = 0,
+        Compact = false,
+    })
+
+    Aimbot:AddSlider("AimbotFovSides", {
+        Text = "fov size",
+        Default = 64,
+        Min = 3,
+        Max = 64,
+        Rounding = 0,
+        Compact = false,
+    })
+
+    local Fov = Drawing.new("Circle")
+    Fov.Filled = false
+    Fov.Thickness = 1
+    Fov.Radius = Options.AimbotFovSize.Value
+    Fov.NumSides = Options.AimbotFovSize.Value
+    Fov.Color = Options.AimbotColorPicker.Value
+
+    local function GetAimbotTarget()
+        local ClosestPlayer = nil
+        local ClosestDistance = math.huge
+        
+        for _,Player in next, game.Players:GetPlayers() do
+            if Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and Player.Character:FindFirstChild("Humanoid") and Player.Character:FindFirstChild("Humanoid").Health > 0 then
+                local CurrentCamera = workspace.CurrentCamera
+                local Mouse = game.Players.LocalPlayer:GetMouse()
+
+                local Vector, _ = CurrentCamera:WorldToViewportPoint(Player.Character:GetPivot().Position)
+                local Magnitude = (Vector2.new(Mouse.X, Mouse.Y) - Vector2.new(Vector.X, Vector.Y)).Magnitude
+
+                if Magnitude < ClosestDistance and Magnitude <= Options.AimbotFovSize.Value then
+                    ClosestPlayer = Player
+                    ClosestDistance = Magnitude
+                end
+            end
+        end
+
+        return ClosestPlayer
+    end
+
+    Package.Interface.Linoria:GiveTask(task.spawn(function()
+        while task.wait() do
+            if Toggles.Aimbot.Value then
+                local Target = GetAimbotTarget()
+
+                if Target then
+                    local BodyPart = Target:FindFirstChild(Options.AimbotBodyPart.Value)
+
+                    if BodyPart then
+                        if Toggles.AimbotSmoothing.Value then
+                            game:GetService("TweenService"):Create(workspace.CurrentCamera, TweenInfo.new(Options.AimbotSmoothingValue), {CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, BodyPart.Position)}):Play()
+                        else
+                            workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, BodyPart.Position)
+                        end
+                    end
+                end
+
+                if Toggles.AimbotShowFov.Value then
+                    Fov.Visible = true
+                    Fov.Radius = Options.AimbotFovSize.Values
+                    Fov.NumSides = Options.AimbotFovSize.Value
+                    Fov.Color = Options.AimbotColorPicker.Value
+                end
+            else
+                Fov.Visible = false
+            end
+        end
+    end))
 end
 
 function Main:Setup(Package, Window)
