@@ -155,14 +155,11 @@ function Visuals:Construct(Package)
 
     local World = MakeSection("world", "Right")
 
-    World:AddToggle('Ambient', {
-        Text = 'ambient',
-        Default = true,
-        Callback = function(Value)
-            Package.Helpers.Esp.Settings.HealthText = Value
-        end
-    }):AddColorPicker("AmbientColorPicker", {
-        Default = Color3.fromRGB(255, 255, 255),
+    World:AddToggle("AmbientColor", {
+        Text = "ambient color",
+        Default = false,
+    }):AddColorPicker("AmbientColorValue", {
+        Default = Color3.new(1, 1, 1),
         Title = "color",
     })
 
@@ -170,8 +167,8 @@ function Visuals:Construct(Package)
 
     Package.Interface.Linoria:GiveTask(task.spawn(function()
         while task.wait(0.01) do
-            if Toggles.Ambient.Value then
-                ColorCorrectionEffect.TintColor = Options.AmbientColorPicker.Value
+            if Toggles.AmbientColor.Value then
+                ColorCorrectionEffect.TintColor = Options.AmbientColorValue.Value
             else
                 ColorCorrectionEffect.TintColor = Color3.fromRGB(255, 255, 255)
             end
