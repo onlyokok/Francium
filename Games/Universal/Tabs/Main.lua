@@ -195,6 +195,16 @@ function Main:Construct(Package)
         Text = "aimbot",
         Default = false,
     })
+
+    Aimbot:AddToggle("AimbotCheckIfScoping", {
+        Text = "check if scoping",
+        Default = false,
+    })
+
+    Aimbot:AddToggle("AimbotIgnoreTeam", {
+        Text = "check if scoping",
+        Default = false,
+    })
     
     Toggles.Aimbot:AddKeyPicker("AimbotKeyPicker", {
         Default = "None",
@@ -271,21 +281,30 @@ function Main:Construct(Package)
         local ClosestPlayer = nil
         local ClosestDistance = math.huge
         
-        for _,Player in next, game.Players:GetPlayers() do
-            if Player ~= game.Players.LocalPlayer and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and Player.Character:FindFirstChild("Humanoid") and Player.Character:FindFirstChild("Humanoid").Health > 0 then
-                local CurrentCamera = workspace.CurrentCamera
-                local MouseLocation = game:GetService("UserInputService"):GetMouseLocation()
-
-                local Vector, _ = CurrentCamera:WorldToViewportPoint(Player.Character:GetPivot().Position)
-                local Magnitude = (Vector2.new(MouseLocation.X, MouseLocation.Y) - Vector2.new(Vector.X, Vector.Y)).Magnitude
-
-                if Magnitude < ClosestDistance and Magnitude <= Options.AimbotFovSize.Value then
-                    ClosestPlayer = Player
-                    ClosestDistance = Magnitude
+        for _, Player in next, game.Players:GetPlayers() do
+            if Player ~= game.Players.LocalPlayer and 
+               Player.Character and 
+               Player.Character:FindFirstChild("HumanoidRootPart") and 
+               Player.Character:FindFirstChild("Humanoid") and 
+               Player.Character:FindFirstChild("Humanoid").Health > 0 then
+    
+                if not Toggles.AimbotIgnoreTeam.Value or (Player.Team ~= game.Players.LocalPlayer.Team) then
+    
+                    local CurrentCamera = workspace.CurrentCamera
+                    local MouseLocation = game:GetService("UserInputService"):GetMouseLocation()
+    
+                    local Vector, _ = CurrentCamera:WorldToViewportPoint(Player.Character:GetPivot().Position)
+                    local Magnitude = (Vector2.new(MouseLocation.X, MouseLocation.Y) - Vector2.new(Vector.X, Vector.Y)).Magnitude
+    
+                    if Magnitude < ClosestDistance and Magnitude <= Options.AimbotFovSize.Value then
+                        ClosestPlayer = Player
+                        ClosestDistance = Magnitude
+                    end
+    
                 end
             end
         end
-
+    
         return ClosestPlayer
     end
 
