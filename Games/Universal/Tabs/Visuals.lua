@@ -155,24 +155,22 @@ function Visuals:Construct(Package)
 
     local World = MakeSection("world", "Right")
 
-    local AmbientColor = World:AddToggle("AmbientColor", {
-        Text = "ambient color",
-        Default = false,
-    })
+    local ColorCorrection = Instance.new("ColorCorrectionEffect", game.Lighting)
     
-    local AmbientColorPicker =  AmbientColor:AddColorPicker("AmbientColorValue", {
+    World:AddToggle("WorldColor", {
+        Text = "World Color",
+        Default = false,
+    }):AddColorPicker("WorldColorValue", {
         Default = Color3.new(1, 1, 1),
-        Title = "color",
+        Title = "World Color ColorPicker",
     })
-
-    local ColorCorrectionEffect = Instance.new("ColorCorrectionEffect", game.Lighting)
 
     Package.Interface.Linoria:GiveTask(task.spawn(function()
-        while task.wait(0.01) do
-            if Toggles.AmbientColor.Value then
-                ColorCorrectionEffect.TintColor = AmbientColorPicker.Value
+        while task.wait() do
+            if Toggles.WorldColor.Value then
+                ColorCorrection.TintColor = Options.WorldColorValue.Value
             else
-                ColorCorrectionEffect.TintColor = Color3.fromRGB(255, 255, 255)
+                ColorCorrection.TintColor = Color3.new(1, 1, 1)
             end
         end
     end))
