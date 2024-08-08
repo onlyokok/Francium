@@ -201,3 +201,5 @@ function Main:Setup(Package, Window)
 
     self:Construct(Package)
 end
+
+return Main
