@@ -374,6 +374,10 @@ function Main:Construct(Package)
             end
         end
     end))
+
+    local misc = self.Tab:AddRightGroupbox("misc")
+
+    
 end
 
 function Main:Setup(Package, Window)
