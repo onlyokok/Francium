@@ -344,6 +344,7 @@ function Main:Construct(Package)
 
                             Line.From = Vector2.new(MouseLocation.X, MouseLocation.Y)
                             Line.To = Vector2.new(Vector.X, Vector.Y)
+                            Line.Color = Options.AimbotSnapLineColorPicker.Value
 
                             if OnScreen then
                                 Line.Visible = true
