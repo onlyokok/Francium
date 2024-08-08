@@ -291,6 +291,7 @@ function Main:Construct(Package)
         while task.wait() do
             if Toggles.Aimbot.Value then
                 local Target = GetAimbotTarget()
+                print(Target)
                 local MouseLocation = game:GetService("UserInputService"):GetMouseLocation()
 
                 if Target and Target.Character then
