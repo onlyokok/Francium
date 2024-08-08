@@ -171,7 +171,7 @@ function Visuals:Construct(Package)
         Compact = false,
     })
 
-    local Index; Index = hookmetamethod(game, "__index", function(self, Property)
+    local Index; Index = hookmetamethod(game, "__index", newcclosure(function(self, Property)
         if Property == "FieldOfView" then
             if Toggles.FieldOfView.Value then
                 return Options.FieldOfViewValue.Value
@@ -179,7 +179,7 @@ function Visuals:Construct(Package)
         end
 
         return Index(self, Property)
-    end)
+    end))
 
     Package.Interface.Linoria:GiveTask(task.spawn(function()
         while task.wait() do
