@@ -202,7 +202,7 @@ function Main:Construct(Package)
     })
 
     Aimbot:AddToggle("AimbotIgnoreTeam", {
-        Text = "check if scoping",
+        Text = "ignore team",
         Default = false,
     })
     
@@ -323,7 +323,7 @@ function Main:Construct(Package)
                     local BodyPart = Target.Character:FindFirstChild(BodyParts[Options.AimbotBodyPart.Value])
 
                     if BodyPart then
-                        if Options.AimbotCheckIfScoping.Value and game:GetService("UserInputService"):IsMouseButtonPressed(Enum.UserInputType.MouseButton2) then
+                        if Toggles.AimbotCheckIfScoping.Value and game:GetService("UserInputService"):IsMouseButtonPressed(Enum.UserInputType.MouseButton2) then
                             if Toggles.AimbotSmoothing.Value then
                                 game:GetService("TweenService"):Create(workspace.CurrentCamera, TweenInfo.new(Options.AimbotSmoothingValue.Value / 20), {CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, BodyPart.Position)}):Play()
                             else
