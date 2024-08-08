@@ -108,7 +108,7 @@ function Main:Construct(Package)
         Package.Interface.Linoria:GiveTask(task.spawn(function()
             while task.wait() do
                 if Toggles.Fly.Value then
-                    if not Toggles.SafeMode.Value and not Toggles.Fly.Value then
+                    if not Toggles.SafeMode.Value then
                         if game.Players.LocalPlayer.Character then
                             local HumanoidRootPart = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
                             local Velocity = Vector3.new(0, -Options.FallSpeed.Value / 10 , 0)
@@ -156,7 +156,7 @@ function Main:Construct(Package)
             if not GameProcessed then
                 if Input.KeyCode == Enum.KeyCode.Space then
                     if Toggles.JumpPower.Value then
-                        if not Toggles.SafeMode.Value then
+                        if not Toggles.SafeMode.Value and not Toggles.Fly.Value then
                             local HumanoidRootPart = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
                             local Humanoid = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
     
