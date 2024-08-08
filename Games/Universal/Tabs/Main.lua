@@ -295,6 +295,7 @@ function Main:Construct(Package)
         while task.wait() do
             if Toggles.Aimbot.Value then
                 local Target = GetAimbotTarget()
+                local Mouse = game.Players.LocalPlayer:GetMouse()
 
                 if Target then
                     local BodyPart = Target:FindFirstChild(Options.AimbotBodyPart.Value)
@@ -310,9 +311,10 @@ function Main:Construct(Package)
 
                 if Toggles.AimbotShowFov.Value then
                     Fov.Visible = true
-                    Fov.Radius = Options.AimbotFovSize.Values
+                    Fov.Radius = Options.AimbotFovSize.Value
                     Fov.NumSides = Options.AimbotFovSize.Value
                     Fov.Color = Options.AimbotColorPicker.Value
+                    Fov.Position = Vector2.new(Mouse.X, Mouse.Y)
                 end
             else
                 Fov.Visible = false
