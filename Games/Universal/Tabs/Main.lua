@@ -13,18 +13,18 @@ function Main:Construct(Package)
         local Section = MakeSection("Movement", Side)
 
         Section:AddToggle("Fly", {
-            Text = "Fly",
+            Text = "fly",
             Default = false,
         }):AddKeyPicker("FlyKeyPicker", {
             Default = "None",
             SyncToggleState = true,
             Mode = "Toggle",
-            Text = "Fly",
+            Text = "fly",
             NoUI = false,
         })
     
         Section:AddSlider("FlySpeed", {
-            Text = "Fly Speed",
+            Text = "fly speed",
             Default = 50,
             Min = 25,
             Max = 200,
@@ -33,7 +33,7 @@ function Main:Construct(Package)
         })
     
         Section:AddSlider("FallSpeed", {
-            Text = "Fall Speed",
+            Text = "fall speed",
             Default = 25,
             Min = 25,
             Max = 200,
@@ -44,18 +44,18 @@ function Main:Construct(Package)
         Section:AddDivider()
     
         Section:AddToggle("WalkSpeed", {
-            Text = "Walk Speed",
+            Text = "walk speed",
             Default = false,
         }):AddKeyPicker('WalkSpeedKeyPicker', {
             Default = 'None',
             SyncToggleState = true,
             Mode = 'Toggle',
-            Text = 'Walk Speed',
+            Text = 'walk speed',
             NoUI = false,
         })
     
         Section:AddSlider('WalkSpeedValue', {
-            Text = 'Walk Speed Value',
+            Text = 'value',
             Default = 25,
             Min = 5,
             Max = 200,
@@ -66,18 +66,18 @@ function Main:Construct(Package)
         Section:AddDivider()
     
         Section:AddToggle("JumpPower", {
-            Text = "Jump Power",
+            Text = "jump power",
             Default = false,
         }):AddKeyPicker("JumpPowerKeyPicker", {
             Default = "None",
             SyncToggleState = true,
             Mode = "Toggle",
-            Text = "Jump Power",
+            Text = "jump power",
             NoUI = false,
         })
     
         Section:AddSlider("JumpPowerValue", {
-            Text = "Jump Power Value",
+            Text = "value",
             Default = 50,
             Min = 50,
             Max = 200,
@@ -86,22 +86,22 @@ function Main:Construct(Package)
         })
     
         Section:AddDropdown("JumpPowerMethod", {
-            Values = {"Velocity", "Humanoid"},
+            Values = {"velocity", "humanoid"},
             Default = 1,
             Multi = false,
-            Text = "Jump Power Method",
+            Text = "method",
         })
     
         Section:AddDivider()
     
         Section:AddToggle("SafeMode", {
-            Text = "Safe Mode",
+            Text = "safe mode",
             Default = false,
         }):AddKeyPicker("SafeModeKeyPicker", {
             Default = "None",
             SyncToggleState = true,
             Mode = "Toggle",
-            Text = "Safe Mode",
+            Text = "safe mode",
             NoUI = false,
         })
     
@@ -160,9 +160,9 @@ function Main:Construct(Package)
                             local HumanoidRootPart = game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
                             local Humanoid = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
     
-                            if Options.JumpPowerMethod.Value == "Velocity" and HumanoidRootPart then
+                            if Options.JumpPowerMethod.Value == "velocity" and HumanoidRootPart then
                                 HumanoidRootPart.Velocity = Vector3.new(0, Options.JumpPowerValue.Value, 0)
-                            elseif Options.JumpPowerMethod.Value == "Humanoid" and Humanoid then
+                            elseif Options.JumpPowerMethod.Value == "humanoid" and Humanoid then
                                 Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
                             end
                         end
@@ -175,7 +175,7 @@ function Main:Construct(Package)
             Default = "None",
             SyncToggleState = true,
             Mode = "Toggle",
-            Text = "Teleport To Ground",
+            Text = "teleport to ground",
             NoUI = true,
             Callback = function()
                 local Origin = game.Players.LocalPlayer.Character:GetPivot().Position
@@ -197,7 +197,7 @@ function Main:Construct(Package)
 end
 
 function Main:Setup(Package, Window)
-    self.Tab = Window:AddTab("Universal")
+    self.Tab = Window:AddTab("universal")
 
     self:Construct(Package)
 end

@@ -10,10 +10,10 @@ function Visuals:Construct(Package)
     end
 
     local function MakeOptionsSection(Side)
-        local Section = MakeSection("Options", Side)
+        local Section = MakeSection("options", Side)
 
         Section:AddToggle('EspEnabled', {
-            Text = 'Enabled',
+            Text = 'enabled',
             Default = true,
             Callback = function(Value)
                 Package.Helpers.Esp.Settings.Enabled = Value
@@ -22,12 +22,11 @@ function Visuals:Construct(Package)
             Default = "None",
             SyncToggleState = true,
             Mode = "Toggle",
-            Text = "Esp Enabled",
             NoUI = true,
         })
     
         Section:AddToggle('EspLimitDistance', {
-            Text = 'Limit Distance',
+            Text = 'limit distance',
             Default = false,
             Callback = function(Value)
                 Package.Helpers.Esp.Settings.LimitDistance = Value
@@ -35,7 +34,7 @@ function Visuals:Construct(Package)
         })
     
         Section:AddSlider("EspMaxDistance", {
-            Text = "Max Distance",
+            Text = "max distance",
             Default = 20000,
             Min = 0,
             Max = 20000,
@@ -49,7 +48,7 @@ function Visuals:Construct(Package)
         Section:AddDivider()
     
         Section:AddToggle('EspCheckTeam', {
-            Text = 'Check Team',
+            Text = 'check team',
             Default = false,
             Callback = function(Value)
                 Package.Helpers.Esp.Settings.CheckTeam = Value
@@ -57,7 +56,7 @@ function Visuals:Construct(Package)
         })
     
         Section:AddToggle('EspUseTeamColor', {
-            Text = 'Use Team Color',
+            Text = 'use team color',
             Default = false,
             Callback = function(Value)
                 Package.Helpers.Esp.Settings.UseTeamColor = Value
@@ -77,14 +76,14 @@ function Visuals:Construct(Package)
             Values = {"UI", "System", "Plex", "Monospace"},
             Default = 4,
             Multi = false,
-            Text = "Text Font",
+            Text = "text font",
             Callback = function(Value)
                 Package.Helpers.Esp.Settings.TextFont = Fonts[Value]
             end
         })
     
         Section:AddSlider("EspTextSize", {
-            Text = "Text Size",
+            Text = "text size",
             Default = 12,
             Min = 10,
             Max = 20,
@@ -94,25 +93,29 @@ function Visuals:Construct(Package)
                 Package.Helpers.Esp.Settings.TextSize = Value
             end
         })
-    
-        Section:AddDivider()
-    
+
+        return Section
+    end
+
+    local function MakePlayersSection(Side)
+        local Section = MakeSection("players", Side)
+
         Section:AddToggle("EspName", {
-            Text = "Name",
+            Text = "name",
             Default = true,
             Callback = function(Value)
                 Package.Helpers.Esp.Settings.Name = Value
             end
         }):AddColorPicker("EspNameColorPicker", {
             Default = Color3.new(1, 1, 1),
-            Title = "Name Color",
+            Title = "color",
             Callback = function(Value)
                 Package.Helpers.Esp.Settings.NameColor = Value
             end
         })
     
         Section:AddToggle('EspDistance', {
-            Text = 'Distance',
+            Text = 'distance',
             Default = true,
             Callback = function(Value)
                 Package.Helpers.Esp.Settings.ShowDistance = Value
@@ -120,21 +123,21 @@ function Visuals:Construct(Package)
         })
     
         Section:AddToggle('EspBox', {
-            Text = 'Box',
+            Text = 'box',
             Default = true,
             Callback = function(Value)
                 Package.Helpers.Esp.Settings.Box = Value
             end
         }):AddColorPicker("EspBoxColorPicker", {
             Default = Color3.new(1, 1, 1),
-            Title = "Box Color",
+            Title = "color",
             Callback = function(Value)
                 Package.Helpers.Esp.Settings.BoxColor = Value
             end
         })
     
         Section:AddToggle('EspHealthBar', {
-            Text = 'Health Bar',
+            Text = 'health bar',
             Default = true,
             Callback = function(Value)
                 Package.Helpers.Esp.Settings.HealthBar = Value
@@ -142,14 +145,14 @@ function Visuals:Construct(Package)
         })
     
         Section:AddToggle('EspHealthText', {
-            Text = 'Health Text',
+            Text = 'health text',
             Default = true,
             Callback = function(Value)
                 Package.Helpers.Esp.Settings.HealthText = Value
             end
         }):AddColorPicker("EspHealthColorPicker", {
             Default = Color3.fromRGB(0, 255, 0),
-            Title = "Health Color",
+            Title = "color",
             Callback = function(Value)
                 Package.Helpers.Esp.Settings.HealthTextColor = Value
             end
@@ -159,6 +162,7 @@ function Visuals:Construct(Package)
     end
 
     MakeOptionsSection("Left")
+    MakePlayersSection("Right")
 
     for _,Player in next, game.Players:GetPlayers() do
         if Player ~= game.Players.LocalPlayer then
@@ -172,7 +176,7 @@ function Visuals:Construct(Package)
 end
 
 function Visuals:Setup(Package, Window)
-    self.Tab = Window:AddTab("Visuals")
+    self.Tab = Window:AddTab("visuals")
 
     self:Construct(Package)
 end

@@ -4,7 +4,7 @@ local Games = `{Stem}/Games`
 local Modules = `{Stem}/Modules`
 
 local Package = {
-    Title = "Francium",
+    Title = "francium",
     Helpers = {
         Esp = loadstring(game:HttpGet(`{Modules}/Helpers/Esp.lua`))(),
     },
