@@ -1,15 +1,7 @@
 local Visuals = {}
 
 function Visuals:Construct(Package)
-    local function MakeSection(Title, Side)
-        if Side:lower() == "left" then
-            return self.Tab:AddLeftGroupbox(Title)
-        elseif Side:lower() == "right" then
-            return self.Tab:AddRightGroupbox(Title)
-        end
-    end
-
-    local Options = MakeSection("options", "Left")
+    local Options = self.Tab:AddLeftGroupbox("options")
 
     Options:AddToggle('EspEnabled', {
         Text = 'enabled',
@@ -93,7 +85,7 @@ function Visuals:Construct(Package)
         end
     })
 
-    local Players = MakeSection("players", "Left")
+    local Players = self.Tab:AddLeftGroupbox("players")
 
     Players:AddToggle("EspName", {
         Text = "name",
@@ -153,20 +145,19 @@ function Visuals:Construct(Package)
         end
     })
 
-    local World = MakeSection("world", "Right")
+    local World = self.Tab:AddRightGroupbox("world")
 
-    local ColorCorrection = Instance.new("ColorCorrectionEffect", game.Lighting)
-    
-    World:AddToggle("WorldColor", {
-        Text = "World Color",
+    World:AddToggle("Ambient", {
+        Text = "ambient",
         Default = false,
-    }):AddColorPicker("WorldColorValue", {
+    }):AddColorPicker("AmbientColorPicker", {
         Default = Color3.new(1, 1, 1),
-        Title = "World Color ColorPicker",
+        Title = "color",
     })
 
-    print(Toggles.WorldColor)
-    print(Options.WorldColorValue)
+    Options.AmbientColorPicker:OnChanged(function()
+        print(Options.AmbientColorPicker.Value)
+    end)
 
     for _,Player in next, game.Players:GetPlayers() do
         if Player ~= game.Players.LocalPlayer then
