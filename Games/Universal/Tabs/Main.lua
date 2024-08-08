@@ -3,9 +3,9 @@ local Main = {}
 function Main:Construct(Package)
     local function MakeSection(Title, Side)
         if Side:lower() == "left" then
-            return Tab:AddLeftGroupbox(Title)
+            return self.Tab:AddLeftGroupbox(Title)
         elseif Side:lower() == "right" then
-            return Tab:AddRightGroupbox(Title)
+            return self.Tab:AddRightGroupbox(Title)
         end
     end
 
