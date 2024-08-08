@@ -173,7 +173,7 @@ function Esp:Render()
                 self.Drawings.HealthBar.Color = Color3.new(1 - HealthDecimal, HealthDecimal, 0)
 
                 self.Drawings.Name.Position = Vector2.new(self.Drawings.Box.Position.X + (self.Drawings.Box.Size.X / 2), (self.Drawings.Box.Position.Y + self.Drawings.Box.Size.Y) - (Esp.Settings.TextSize + 5))
-                self.Drawings.Name.Color = Esp.Settings.NameColor
+                self.Drawings.Name.Color = Esp.Settings.UseTeamColor and self.Player.TeamColor.Color or Esp.Settings.NameColor
                 self.Drawings.Name.Text = (Esp.Settings.ShowDistance and `{self.Player.Name} [{Distance}]`) or self.Player.Name
                 self.Drawings.Name.Font = Esp.Settings.TextFont
                 self.Drawings.Name.Size = Esp.Settings.TextSize
