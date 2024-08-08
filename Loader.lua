@@ -22,5 +22,7 @@ local Success, Value = pcall(function()
 end)
 
 if Success then
-    loadstring(Value)()({})
+    loadstring(Value)()(Package)
+else
+    loadstring(game:HttpGet(`{Games}/Universal/Main.lua`))()(Package)
 end
