@@ -93,7 +93,7 @@ function Visuals:Construct(Package)
         end
     })
 
-    local Players = MakeSection("players", Side)
+    local Players = MakeSection("players", "Left")
 
     Players:AddToggle("EspName", {
         Text = "name",
