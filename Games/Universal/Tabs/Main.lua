@@ -340,11 +340,16 @@ function Main:Construct(Package)
                         end
 
                         if Toggles.AimbotSnapLine.Value then
-                            local Vector, _ = workspace.CurrentCamera:WorldToViewportPoint(BodyPart.Position)
+                            local Vector, OnScreen = workspace.CurrentCamera:WorldToViewportPoint(BodyPart.Position)
 
-                            Line.Visible = true
                             Line.From = Vector2.new(MouseLocation.X, MouseLocation.Y)
                             Line.To = Vector2.new(Vector.X, Vector.Y)
+
+                            if OnScreen then
+                                Line.Visible = true
+                            else
+                                Line.Visible = false
+                            end
                         else
                             Line.Visible = false
                         end
