@@ -172,7 +172,7 @@ function Visuals:Construct(Package)
     })
 
     local Index; Index = hookmetamethod(game, "__index", function(self, Property)
-        if tostring(self):find("Camera") and Property == "FieldOfView" then
+        if Property == "FieldOfView" then
             if Toggles.FieldOfView.Value then
                 return Options.FieldOfViewValue.Value
             end
