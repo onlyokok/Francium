@@ -156,6 +156,7 @@ function Visuals:Construct(Package)
             Title = "color",
         })
 
+        print(Options.AmbientColorPicker, Options.AmbientColorPicker.Value)
     end
 
     for _,Player in next, game.Players:GetPlayers() do
