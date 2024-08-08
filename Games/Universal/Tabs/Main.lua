@@ -209,11 +209,6 @@ function Main:Construct(Package)
         Title = "color",
     })
 
-    Aimbot:AddToggle("AimbotSnapLine", {
-        Text = "snap line",
-        Default = false,
-    })
-
     Aimbot:AddDropdown("AimbotBodyPart", {
         Values = {"head", "humanoidrootpart"},
         Default = 1,
@@ -244,6 +239,14 @@ function Main:Construct(Package)
         Default = false,
     })
 
+    Aimbot:AddToggle("AimbotSnapLine", {
+        Text = "snap line",
+        Default = false,
+    }):AddColorPicker("AimbotSnapLineColorPicker", {
+        Default = Color3.fromRGB(255, 255, 255),
+        Title = "color",
+    })
+
     Aimbot:AddSlider("AimbotFovSize", {
         Text = "fov size",
         Default = 50,
@@ -259,6 +262,10 @@ function Main:Construct(Package)
     Fov.Radius = Options.AimbotFovSize.Value
     Fov.NumSides = 64
     Fov.Color = Options.AimbotColorPicker.Value
+
+    local Line = Drawing.new("Line")
+    Line.Thickness = 1
+    Line.Color = Options.AimbotSnapLineColorPicker.Value
 
     local function GetAimbotTarget()
         local ClosestPlayer = nil
@@ -291,7 +298,6 @@ function Main:Construct(Package)
         while task.wait() do
             if Toggles.Aimbot.Value then
                 local Target = GetAimbotTarget()
-                print(Target)
                 local MouseLocation = game:GetService("UserInputService"):GetMouseLocation()
 
                 if Target and Target.Character then
@@ -303,6 +309,14 @@ function Main:Construct(Package)
                         else
                             workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, BodyPart.Position)
                         end
+
+                        if Toggles.AimbotSnapLine.Value then
+                            local Vector, _ = workspace.CurrentCamera:WorldToViewportPoint(BodyPart.Position)
+
+                            Line.Visible = true
+                            Line.From = Vector2.new(MouseLocation.X, MouseLocation.Y)
+                            Line.To = Vector2.new(Vector.X, Vector.Y)
+                        end
                     end
                 end
 
@@ -313,9 +327,11 @@ function Main:Construct(Package)
                     Fov.Position = Vector2.new(MouseLocation.X, MouseLocation.Y)
                 else
                     Fov.Visible = false
+                    Line.Visible = false
                 end
             else
                 Fov.Visible = false
+                Line.Visible = false
             end
         end
     end))
