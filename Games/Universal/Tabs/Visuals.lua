@@ -145,22 +145,20 @@ function Visuals:Construct(Package)
         end
     })
 
-    local World = self.Tab:AddRightGroupbox("world")
+    do
+        local World = self.Tab:AddRightGroupbox("world")
 
-    World:AddToggle("Ambient", {
-        Text = "ambient",
-        Default = false,
-    }):AddColorPicker("AmbientColorPicker", {
-        Default = Color3.new(1, 1, 1),
-        Title = "color",
-        Callback = function(Value)
-            print(Value)
-        end
-    })
-
-    Options.AmbientColorPicker:OnChanged(function()
-        print(Options.AmbientColorPicker.Value)
-    end)
+        World:AddToggle("Ambient", {
+            Text = "ambient",
+            Default = false,
+        }):AddColorPicker("AmbientColorPicker", {
+            Default = Color3.new(1, 1, 1),
+            Title = "color",
+            Callback = function(Value)
+                print(Value)
+            end
+        })
+    end
 
     for _,Player in next, game.Players:GetPlayers() do
         if Player ~= game.Players.LocalPlayer then
