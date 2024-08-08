@@ -265,7 +265,7 @@ function Main:Construct(Package)
         local ClosestDistance = math.huge
         
         for _,Player in next, game.Players:GetPlayers() do
-            if Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and Player.Character:FindFirstChild("Humanoid") and Player.Character:FindFirstChild("Humanoid").Health > 0 then
+            if Player ~= game.Players.LocalPlayer and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and Player.Character:FindFirstChild("Humanoid") and Player.Character:FindFirstChild("Humanoid").Health > 0 then
                 local CurrentCamera = workspace.CurrentCamera
                 local MouseLocation = game:GetService("UserInputService"):GetMouseLocation()
 
