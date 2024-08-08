@@ -57,14 +57,14 @@ function Visuals:Construct(Package)
     VisualsOptions:AddDivider()
 
     local Fonts = {
-        UI = 0,
-        System = 1,
-        Plex = 2,
-        Monospace = 3
+        ui = 0,
+        system = 1,
+        plex = 2,
+        monospace = 3
     }
 
     VisualsOptions:AddDropdown("EspTextFont", {
-        Values = {"UI", "System", "Plex", "Monospace"},
+        Values = {"ui", "system", "plex", "monospace"},
         Default = 4,
         Multi = false,
         Text = "text font",
