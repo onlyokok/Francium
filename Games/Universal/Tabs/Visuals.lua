@@ -158,7 +158,9 @@ function Visuals:Construct(Package)
     World:AddToggle("AmbientColor", {
         Text = "ambient color",
         Default = false,
-    }):AddColorPicker("AmbientColorValue", {
+    })
+    
+    local AmbientColorPicker =  Toggles.AmbientColor:AddColorPicker("AmbientColorValue", {
         Default = Color3.new(1, 1, 1),
         Title = "color",
     })
@@ -168,7 +170,7 @@ function Visuals:Construct(Package)
     Package.Interface.Linoria:GiveTask(task.spawn(function()
         while task.wait(0.01) do
             if Toggles.AmbientColor.Value then
-                ColorCorrectionEffect.TintColor = Options.AmbientColorValue.Value
+                ColorCorrectionEffect.TintColor = AmbientColorPicker.Value
             else
                 ColorCorrectionEffect.TintColor = Color3.fromRGB(255, 255, 255)
             end
