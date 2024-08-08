@@ -170,7 +170,7 @@ function Main:Construct(Package)
         end
     end))
 
-    Movement:AddLabel("Teleport To Ground"):AddKeyPicker("TeleportToGroundKeyPicker", {
+    Movement:AddLabel("teleport to ground"):AddKeyPicker("TeleportToGroundKeyPicker", {
         Default = "None",
         SyncToggleState = true,
         Mode = "Toggle",
@@ -189,9 +189,9 @@ function Main:Construct(Package)
         end
     })
 
-    local Aimbot = MakeSection("Aimbot", "Right")
+    local Aimbot = MakeSection("aimbot", "Right")
 
-    
+
 end
 
 function Main:Setup(Package, Window)
