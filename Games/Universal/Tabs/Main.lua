@@ -291,6 +291,11 @@ function Main:Construct(Package)
         return ClosestPlayer
     end
 
+    local BodyParts = {
+        ["head"] = "Head",
+        ["humanoidrootpart"] = "HumanoidRootPart"
+    }
+
     Package.Interface.Linoria:GiveTask(task.spawn(function()
         while task.wait() do
             if Toggles.Aimbot.Value then
@@ -298,7 +303,7 @@ function Main:Construct(Package)
                 local Mouse = game.Players.LocalPlayer:GetMouse()
 
                 if Target then
-                    local BodyPart = Target:FindFirstChild(Options.AimbotBodyPart.Value)
+                    local BodyPart = Target:FindFirstChild(BodyParts[Options.AimbotBodyPart.Value])
 
                     if BodyPart then
                         if Toggles.AimbotSmoothing.Value then
