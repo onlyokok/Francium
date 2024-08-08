@@ -179,7 +179,7 @@ function Visuals:Construct(Package)
                 workspace.CurrentCamera.FieldOfView = 70
             end
 
-            ColorCorrection.TintColor = Toggles.Ambient and Options.AmbientColorPicker.Value or Color3.fromRGB(255, 255, 255)
+            ColorCorrection.TintColor = (Toggles.Ambient and Options.AmbientColorPicker.Value) or Color3.fromRGB(255, 255, 255)
         end
     end))
 
