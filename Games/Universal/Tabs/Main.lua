@@ -248,7 +248,7 @@ function Main:Construct(Package)
         Text = "fov size",
         Default = 50,
         Min = 50,
-        Max = 200,
+        Max = 1000,
         Rounding = 0,
         Compact = false,
     })
