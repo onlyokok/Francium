@@ -155,12 +155,12 @@ function Visuals:Construct(Package)
 
     local World = MakeSection("world", "Right")
 
-    World:AddToggle("AmbientColor", {
+    local AmbientColor = World:AddToggle("AmbientColor", {
         Text = "ambient color",
         Default = false,
     })
     
-    local AmbientColorPicker =  Toggles.AmbientColor:AddColorPicker("AmbientColorValue", {
+    local AmbientColorPicker =  AmbientColor:AddColorPicker("AmbientColorValue", {
         Default = Color3.new(1, 1, 1),
         Title = "color",
     })
