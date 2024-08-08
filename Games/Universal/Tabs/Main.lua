@@ -293,7 +293,7 @@ function Main:Construct(Package)
                 local Target = GetAimbotTarget()
                 local MouseLocation = game:GetService("UserInputService"):GetMouseLocation()
 
-                if Target then
+                if Target and Target.Character then
                     local BodyPart = Target.Character:FindFirstChild(BodyParts[Options.AimbotBodyPart.Value])
 
                     if BodyPart then
