@@ -396,19 +396,6 @@ function Main:Construct(Package)
         end
     end
 
-    Misc:AddToggle("NoFallDamage", {
-        Text = "no fall damage",
-        Default = false,
-    })
-
-    local Fall; Fall = hookfunction(Functions.Fall, function(...)
-        if Toggles.NoFallDamage.Value then
-            return
-        end
-
-        return Fall(...)
-    end)
-
     Misc:AddToggle("NoStaminaDrain", {
         Text = "no stamina drain",
         Default = false,
