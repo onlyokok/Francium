@@ -165,6 +165,18 @@ function Visuals:Construct(Package)
         end
     })
 
+    World:AddSlider("Brightness", {
+        Text = "brightness",
+        Default = 2,
+        Min = 70,
+        Max = 10,
+        Rounding = 0,
+        Compact = false,
+        Callback = function(Value)
+            game.Lighting.Brightness = Value
+        end
+    })
+
     World:AddDivider()
 
     World:AddToggle("FieldOfView", {
