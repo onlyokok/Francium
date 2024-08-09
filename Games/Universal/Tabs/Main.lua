@@ -318,7 +318,7 @@ function Main:Construct(Package)
         local Goal = Target.Position
     
         local Direction = Goal - Origin
-        
+    
         local Params = RaycastParams.new()
         Params.FilterDescendantsInstances = {game.Players.LocalPlayer.Character}
         Params.FilterType = Enum.RaycastFilterType.Blacklist
@@ -326,74 +326,74 @@ function Main:Construct(Package)
         local Result = workspace:Raycast(Origin, Direction, Params)
     
         if Result then
-            return Result.Instance ~= Target
+            return Result.Instance == Target
         else
             return false
         end
     end
-
+    
     local BodyParts = {
         ["head"] = "Head",
         ["humanoidrootpart"] = "HumanoidRootPart"
     }
-
+    
     Package.Interface.Linoria:GiveTask(task.spawn(function()
         while task.wait() do
             if Toggles.Aimbot.Value then
                 local Target = GetAimbotTarget()
                 local MouseLocation = game:GetService("UserInputService"):GetMouseLocation()
-
+    
                 if Target and Target.Character then
                     local BodyPart = Target.Character:FindFirstChild(BodyParts[Options.AimbotBodyPart.Value])
-
-                    if Toggles.WallCheck.Value then
-                        if CheckIfVisible(BodyPart) then
-                            return
-                        end
-                    end
-
+    
                     if BodyPart then
-                        if Toggles.AimbotCheckIfScoping.Value then
-                            if game:GetService("UserInputService"):IsMouseButtonPressed(Enum.UserInputType.MouseButton2) then
+                        -- Only proceed if WallCheck is disabled or the target is visible
+                        if not Options.WallCheck.Value or CheckIfVisible(BodyPart) then
+                            if Toggles.AimbotCheckIfScoping.Value then
+                                if game:GetService("UserInputService"):IsMouseButtonPressed(Enum.UserInputType.MouseButton2) then
+                                    if Toggles.AimbotSmoothing.Value then
+                                        game:GetService("TweenService"):Create(workspace.CurrentCamera, TweenInfo.new(Options.AimbotSmoothingValue.Value / 20), {CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, BodyPart.Position)}):Play()
+                                    else
+                                        workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, BodyPart.Position)
+                                    end
+                                end
+                            else
                                 if Toggles.AimbotSmoothing.Value then
                                     game:GetService("TweenService"):Create(workspace.CurrentCamera, TweenInfo.new(Options.AimbotSmoothingValue.Value / 20), {CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, BodyPart.Position)}):Play()
                                 else
                                     workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, BodyPart.Position)
                                 end
                             end
-                        else
-                            if Toggles.AimbotSmoothing.Value then
-                                game:GetService("TweenService"):Create(workspace.CurrentCamera, TweenInfo.new(Options.AimbotSmoothingValue.Value / 20), {CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, BodyPart.Position)}):Play()
-                            else
-                                workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, BodyPart.Position)
-                            end
-                        end
-
-                        if Toggles.AimbotSnapLine.Value then
-                            local Vector, OnScreen = workspace.CurrentCamera:WorldToViewportPoint(BodyPart.Position)
-
-                            Line.From = Vector2.new(MouseLocation.X, MouseLocation.Y)
-                            Line.To = Vector2.new(Vector.X, Vector.Y)
-                            Line.Color = Options.AimbotSnapLineColorPicker.Value
-
-                            if OnScreen then
-                                Line.Visible = true
+    
+                            if Toggles.AimbotSnapLine.Value then
+                                local Vector, OnScreen = workspace.CurrentCamera:WorldToViewportPoint(BodyPart.Position)
+    
+                                Line.From = Vector2.new(MouseLocation.X, MouseLocation.Y)
+                                Line.To = Vector2.new(Vector.X, Vector.Y)
+                                Line.Color = Options.AimbotSnapLineColorPicker.Value
+    
+                                if OnScreen then
+                                    Line.Visible = true
+                                else
+                                    Line.Visible = false
+                                end
                             else
                                 Line.Visible = false
                             end
-                        else
-                            Line.Visible = false
                         end
+                    else
+                        Line.Visible = false
                     end
-                else
-                    Line.Visible = false
-                end
-
-                if Toggles.AimbotShowFov.Value then
-                    Fov.Visible = true
-                    Fov.Radius = Options.AimbotFovSize.Value
-                    Fov.Color = Options.AimbotColorPicker.Value
-                    Fov.Position = Vector2.new(MouseLocation.X, MouseLocation.Y)
+    
+                    if Toggles.AimbotShowFov.Value then
+                        Fov.Visible = true
+                        Fov.Radius = Options.AimbotFovSize.Value
+                        Fov.Color = Options.AimbotColorPicker.Value
+                        Fov.Position = Vector2.new(MouseLocation.X, MouseLocation.Y)
+                    else
+                        Fov.Visible = false
+                        Line.Visible = false
+                    end
                 else
                     Fov.Visible = false
                     Line.Visible = false
