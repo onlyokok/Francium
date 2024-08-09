@@ -386,7 +386,9 @@ function Main:Construct(Package)
         local Args = {...}
 
         if type(Args[1]) == "number" and type(Args[2]) == "boolean" then
-            return
+            if Toggles.NoFallDamage.Value then
+                return
+            end
         end
 
         return Namecall(self, ...)
