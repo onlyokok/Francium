@@ -47,7 +47,7 @@ function Settings:SetupManagers(Package)
 
     Package.Interface.Addons.SaveManager:SetIgnoreIndexes({"MenuKeybind"})
 
-    Package.Interface.Addons.SaveManager:SetFolder(`{Package.Title}/Universal`)
+    Package.Interface.Addons.SaveManager:SetFolder(`{Package.Title}/{game.PlaceId}`)
 
     Package.Interface.Addons.SaveManager:BuildConfigSection(self.Tab)
     Package.Interface.Addons.SaveManager:LoadAutoloadConfig()
