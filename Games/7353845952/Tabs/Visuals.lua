@@ -181,6 +181,24 @@ function Visuals:Construct(Package)
         Compact = false,
     })
 
+    World:AddDivider()
+
+    World:AddToggle("Brightness", {
+        Text = "brightness",
+        Default = false,
+    })
+
+    local DefaultBrightness = game.Lighting.Brightness
+
+    World:AddSlider("BrightnessValue", {
+        Text = "value",
+        Default = DefaultBrightness,
+        Min = DefaultBrightness,
+        Max = 10,
+        Rounding = 0,
+        Compact = false,
+    })
+
     Package.Interface.Linoria:GiveTask(task.spawn(function()
         while task.wait() do
             if Toggles.Ambient.Value then
@@ -194,6 +212,12 @@ function Visuals:Construct(Package)
             else
                 workspace.CurrentCamera.FieldOfView = 70
             end
+
+            if Toggles.Brightness.Value then
+                game.Lighting.Brightness = Options.BrightnessValue.Value
+            else
+                game.Lighting.Brightness = DefaultBrightness
+            end
         end
     end))
 
@@ -203,25 +227,31 @@ function Visuals:Construct(Package)
         end
     end))
 
+    Package.Interface.Linoria:GiveSignal(game.Lighting.Changed:Connect(function()
+        if Toggles.Brightness.Value then
+            game.Lighting.Brightness = Options.BrightnessValue.Value
+        end
+    end))
+
     local PointsOfInterest = self.Tab:AddRightGroupbox("points of interest")
 
-    PointsOfInterest:AddToggle("Crates", {
-        Text = "crates",
+    PointsOfInterest:AddToggle("MilitaryCrates", {
+        Text = "military crates",
         Default = false,
         Callback = function(Value)
-            Package.Helpers.Esp.SetGroupVisibility("Crates", Value)
+            Package.Helpers.Esp.SetGroupVisibility("MilitaryCrates", Value)
         end
-    }):AddColorPicker("CratesColorPicker", {
+    }):AddColorPicker("MilitaryCratesColorPicker", {
         Default = Color3.fromRGB(255, 255, 255),
         Title = "color",
         Callback = function(Value)
-            Package.Helpers.Esp.SetGroupColor("Crates", Value)
+            Package.Helpers.Esp.SetGroupColor("MilitaryCrates", Value)
         end
     })
 
     for _,v in next, workspace.Containers:GetDescendants() do
         if v:IsA("Model") and tostring(v):find("Military") then
-            Package.Helpers.Esp.Instance("Crates", v, tostring(v))
+            Package.Helpers.Esp.Instance("MilitaryCrates", v, tostring(v))
         end
     end
 
