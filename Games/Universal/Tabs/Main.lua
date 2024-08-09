@@ -347,16 +347,29 @@ function Main:Construct(Package)
                     local BodyPart = Target.Character:FindFirstChild(BodyParts[Options.AimbotBodyPart.Value])
 
                     if BodyPart then
-                        if (not Toggles.WallCheck.Value or CheckIfVisible(BodyPart)) and
-                        (not Toggles.AimbotCheckIfScoping.Value or game:GetService("UserInputService"):IsMouseButtonPressed(Enum.UserInputType.MouseButton2)) then
-                            if Toggles.AimbotSmoothing.Value then
-                                game:GetService("TweenService"):Create(
-                                    workspace.CurrentCamera,
-                                    TweenInfo.new(Options.AimbotSmoothingValue.Value / 20),
-                                    {CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, BodyPart.Position)}
-                                ):Play()
+                        if not Toggles.WallCheck.Value or CheckIfVisible(BodyPart) then
+                            if Toggles.AimbotCheckIfScoping.Value then
+                                if game:GetService("UserInputService"):IsMouseButtonPressed(Enum.UserInputType.MouseButton2) then
+                                    if Toggles.AimbotSmoothing.Value then
+                                        game:GetService("TweenService"):Create(
+                                            workspace.CurrentCamera,
+                                            TweenInfo.new(Options.AimbotSmoothingValue.Value / 20),
+                                            {CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, BodyPart.Position)}
+                                        ):Play()
+                                    else
+                                        workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, BodyPart.Position)
+                                    end
+                                end
                             else
-                                workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, BodyPart.Position)
+                                if Toggles.AimbotSmoothing.Value then
+                                    game:GetService("TweenService"):Create(
+                                        workspace.CurrentCamera,
+                                        TweenInfo.new(Options.AimbotSmoothingValue.Value / 20),
+                                        {CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, BodyPart.Position)}
+                                    ):Play()
+                                else
+                                    workspace.CurrentCamera.CFrame = CFrame.new(workspace.CurrentCamera.CFrame.Position, BodyPart.Position)
+                                end
                             end
                         end
 
