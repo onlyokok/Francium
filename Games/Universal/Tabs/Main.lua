@@ -314,7 +314,7 @@ function Main:Construct(Package)
     end
 
     local function CheckIfVisible(Target)
-        local Origin = game.Players.LocalPlayer.Character:WaitForChild("Head").Position
+        local Origin = game.Players.LocalPlayer.Character:GetPivot().Position
         local Goal = Target.Position
 
         local Direction = Goal - Origin
@@ -334,7 +334,7 @@ function Main:Construct(Package)
                 local Target = GetAimbotTarget()
                 local MouseLocation = game:GetService("UserInputService"):GetMouseLocation()
 
-                if Target and Target.Character then
+                if Target and Target.Character and game.Players.LocalPlayer.Character then
                     local BodyPart = Target.Character:FindFirstChild(BodyParts[Options.AimbotBodyPart.Value])
 
                     if Toggles.WallCheck.Value and not CheckIfVisible(BodyPart) then
