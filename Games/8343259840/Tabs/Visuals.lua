@@ -209,7 +209,7 @@ function Visuals:Construct(Package)
         end
     })
 
-    for _,Shop in next, workspace.Shopz:GetChildren() do
+    for _,Shop in next, workspace.Map.Shopz:GetChildren() do
         Package.Helpers.Esp.Instance("Shops", Shop, Shop.Name)
     end
 
