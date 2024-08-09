@@ -374,6 +374,23 @@ function Main:Construct(Package)
             end
         end
     end))
+
+    local Misc = self.Tab:AddRightGroupbox("misc")
+
+    Misc:AddToggle("NoFallDamage", {
+        Text = "no fall damage",
+        Default = false,
+    })
+
+    local Namecall; Namecall = hookmetamethod(game, "__namecall", function(self, ...)
+        local Args = {...}
+
+        if type(Args[1]) == "number" and type(Args[2]) == "boolean" then
+            return
+        end
+
+        return Namecall(self, ...)
+    end)
 end
 
 function Main:Setup(Package, Window)
