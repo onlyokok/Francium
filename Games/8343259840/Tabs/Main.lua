@@ -293,10 +293,10 @@ function Main:Construct(Package)
                     local CurrentCamera = workspace.CurrentCamera
                     local MouseLocation = game:GetService("UserInputService"):GetMouseLocation()
     
-                    local Vector, _ = CurrentCamera:WorldToViewportPoint(Player.Character:GetPivot().Position)
+                    local Vector, OnScreen = CurrentCamera:WorldToViewportPoint(Player.Character:GetPivot().Position)
                     local Magnitude = (Vector2.new(MouseLocation.X, MouseLocation.Y) - Vector2.new(Vector.X, Vector.Y)).Magnitude
     
-                    if Magnitude < ClosestDistance and Magnitude <= Options.AimbotFovSize.Value then
+                    if Magnitude < ClosestDistance and Magnitude <= Options.AimbotFovSize.Value and OnScreen then
                         ClosestPlayer = Player
                         ClosestDistance = Magnitude
                     end
