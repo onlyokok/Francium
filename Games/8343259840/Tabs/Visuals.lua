@@ -231,6 +231,24 @@ function Visuals:Construct(Package)
         Package.Helpers.Esp.Instance("Atms", Atm, Atm.Name)
     end
 
+    PointsOfInterest:AddToggle("MoneyMakers", {
+        Text = "money makers",
+        Default = false,
+        Callback = function(Value)
+            Package.Helpers.Esp.SetGroupVisibility("MoneyMakers", Value)
+        end
+    }):AddColorPicker("MoneyMakersColorPicker", {
+        Default = Color3.fromRGB(255, 255, 255),
+        Title = "color",
+        Callback = function(Value)
+            Package.Helpers.Esp.SetGroupColor("MoneyMakers", Value)
+        end
+    })
+
+    for _,Child in next, workspace.Map.BredMakurz:GetChildren() do
+        Package.Helpers.Esp.Instance("MoneyMakers", Child, Child.Name)
+    end
+
     for _,Player in next, game.Players:GetPlayers() do
         if Player ~= game.Players.LocalPlayer then
             Package.Helpers.Esp.New(Player)
