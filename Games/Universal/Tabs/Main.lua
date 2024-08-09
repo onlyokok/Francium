@@ -314,7 +314,7 @@ function Main:Construct(Package)
     end
 
     local function CheckIfVisible(Target)
-        local Origin = game.Players.LocalPlayer.Character:GetPivot().Position
+        local Origin = workspace.CurrentCamera.CFrame.Position
         local Goal = Target.Position
     
         local Direction = Goal - Origin
