@@ -188,12 +188,10 @@ function Visuals:Construct(Package)
         Default = false,
     })
 
-    local DefaultBrightness = game.Lighting.Brightness
-
     World:AddSlider("BrightnessValue", {
         Text = "value",
-        Default = DefaultBrightness,
-        Min = DefaultBrightness,
+        Default = 2,
+        Min = 2,
         Max = 10,
         Rounding = 0,
         Compact = false,
@@ -216,7 +214,7 @@ function Visuals:Construct(Package)
             if Toggles.Brightness.Value then
                 game.Lighting.Brightness = Options.BrightnessValue.Value
             else
-                game.Lighting.Brightness = DefaultBrightness
+                game.Lighting.Brightness = 2
             end
         end
     end))
