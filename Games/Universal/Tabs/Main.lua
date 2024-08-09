@@ -343,7 +343,7 @@ function Main:Construct(Package)
                 local Target = GetAimbotTarget()
                 local MouseLocation = game:GetService("UserInputService"):GetMouseLocation()
 
-                if Target and Target.Character and game.Players.LocalPlayer.Character then
+                if Target and Target.Character then
                     local BodyPart = Target.Character:FindFirstChild(BodyParts[Options.AimbotBodyPart.Value])
 
                     if Toggles.WallCheck.Value then
