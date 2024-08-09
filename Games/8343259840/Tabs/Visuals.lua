@@ -205,22 +205,22 @@ function Visuals:Construct(Package)
 
     local PointsOfInterest = self.Tab:AddRightGroupbox("points of interest")
 
-    PointsOfInterest:AddToggle("Shops", {
-        Text = "shops",
+    PointsOfInterest:AddToggle("Dealers", {
+        Text = "dealers",
         Default = false,
         Callback = function(Value)
-            Package.Helpers.Esp.SetGroupVisibility("Shops", Value)
+            Package.Helpers.Esp.SetGroupVisibility("Dealers", Value)
         end
-    }):AddColorPicker("ShopsColorPicker", {
+    }):AddColorPicker("DealersColorPicker", {
         Default = Color3.fromRGB(255, 255, 255),
         Title = "color",
         Callback = function(Value)
-            Package.Helpers.Esp.SetGroupColor("Shops", Value)
+            Package.Helpers.Esp.SetGroupColor("Dealers", Value)
         end
     })
 
-    for _,Shop in next, workspace.Map.Shopz:GetChildren() do
-        Package.Helpers.Esp.Instance("Shops", Shop, Shop.Name)
+    for _,Dealer in next, workspace.Map.Shopz:GetChildren() do
+        Package.Helpers.Esp.Instance("Dealers", Dealer, Dealer.Name)
     end
 
     PointsOfInterest:AddToggle("Atms", {
