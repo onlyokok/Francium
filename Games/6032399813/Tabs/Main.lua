@@ -394,7 +394,7 @@ function Main:Construct(Package)
 end
 
 function Main:Setup(Package, Window)
-    self.Tab = Window:AddTab("universal")
+    self.Tab = Window:AddTab("deepwoken")
 
     self:Construct(Package)
 end
