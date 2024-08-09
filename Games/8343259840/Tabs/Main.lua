@@ -396,7 +396,7 @@ function Main:Construct(Package)
         end
     end
 
-    Aimbot:AddToggle("NoFallDamage", {
+    Misc:AddToggle("NoFallDamage", {
         Text = "no fall damage",
         Default = false,
     })
@@ -409,7 +409,7 @@ function Main:Construct(Package)
         return Fall(...)
     end)
 
-    Aimbot:AddToggle("NoStaminaDrain", {
+    Misc:AddToggle("NoStaminaDrain", {
         Text = "no stamina drain",
         Default = false,
     })

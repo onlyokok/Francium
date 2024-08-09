@@ -193,6 +193,44 @@ function Visuals:Construct(Package)
         end
     end))
 
+    local PointsOfInterest = self.Tab:AddRightGroupbox("points of interest")
+
+    PointsOfInterest:AddToggle("Shops", {
+        Text = "shops",
+        Default = false,
+        Callback = function(Value)
+            Package.Helpers.Esp.SetGroupVisibility("Shops", Value)
+        end
+    }):AddColorPicker("ShopsColorPicker", {
+        Default = Color3.fromRGB(255, 255, 255),
+        Title = "color",
+        Callback = function(Value)
+            Package.Helpers.Esp.SetGroupColor("Shops", Value)
+        end
+    })
+
+    for _,Shop in next, workspace.Shopz:GetChildren() do
+        Package.Helpers.Esp.Instance("Shops", Shop, Shop.Name)
+    end
+
+    PointsOfInterest:AddToggle("Atms", {
+        Text = "atms",
+        Default = false,
+        Callback = function(Value)
+            Package.Helpers.Esp.SetGroupVisibility("Atms", Value)
+        end
+    }):AddColorPicker("AtmsColorPicker", {
+        Default = Color3.fromRGB(255, 255, 255),
+        Title = "color",
+        Callback = function(Value)
+            Package.Helpers.Esp.SetGroupColor("Atms", Value)
+        end
+    })
+
+    for _,Atm in next, workspace.Map.ATMz:GetChildren() do
+        Package.Helpers.Esp.Instance("Atms", Atm, Atm.Name)
+    end
+
     for _,Player in next, game.Players:GetPlayers() do
         if Player ~= game.Players.LocalPlayer then
             Package.Helpers.Esp.New(Player)
