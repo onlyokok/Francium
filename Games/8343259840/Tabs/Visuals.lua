@@ -157,6 +157,16 @@ function Visuals:Construct(Package)
         Title = "color",
     })
 
+    World:AddToggle("DisableShadows", {
+        Text = "disable shadows",
+        Default = false,
+        Callback = function(Value)
+            game.Lighting.GlobalShadows = not Value
+        end
+    })
+
+    World:AddDivider()
+
     World:AddToggle("FieldOfView", {
         Text = "field of view",
         Default = false,
