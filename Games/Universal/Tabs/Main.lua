@@ -316,11 +316,20 @@ function Main:Construct(Package)
     local function CheckIfVisible(Target)
         local Origin = game.Players.LocalPlayer.Character:GetPivot().Position
         local Goal = Target.Position
-
+    
         local Direction = Goal - Origin
-        local Result = workspace:Raycast(Origin, Direction)
-
-        return Result.Instance ~= Target
+        
+        local Params = RaycastParams.new()
+        Params.FilterDescendantsInstances = {game.Players.LocalPlayer.Character}
+        Params.FilterType = Enum.RaycastFilterType.Blacklist
+    
+        local Result = workspace:Raycast(Origin, Direction, Params)
+    
+        if Result then
+            return Result.Instance == Target
+        else
+            return false
+        end
     end
 
     local BodyParts = {
