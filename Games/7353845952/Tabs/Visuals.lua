@@ -283,7 +283,7 @@ function Visuals:Construct(Package)
         end
     end
 
-    Package.Interface.Linoria:GiveSignal(workspace.DroppedItems.ChildAdded:Connect(function(Child)
+    Package.Interface.Linoria:GiveSignal(workspace.DroppedItems.ChildAdded:Connect(function(Item)
         if table.find(GetPlayerNames(), Item.Name) then
             Package.Helpers.Esp.Instance("Bodies", Item, string.format("%ss Body", Item.Name))
         end
