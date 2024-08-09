@@ -346,8 +346,6 @@ function Main:Construct(Package)
                 if Target and Target.Character then
                     local BodyPart = Target.Character:FindFirstChild(BodyParts[Options.AimbotBodyPart.Value])
 
-
-
                     if BodyPart then
                         if Toggles.WallCheck.Value then
                             if CheckIfVisible(BodyPart) then
