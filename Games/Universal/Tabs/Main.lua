@@ -196,6 +196,11 @@ function Main:Construct(Package)
         Default = false,
     })
 
+    Aimbot:AddToggle("WallCheck", {
+        Text = "wall check",
+        Default = false,
+    })
+
     Aimbot:AddToggle("AimbotCheckIfScoping", {
         Text = "check if scoping",
         Default = false,
@@ -308,6 +313,16 @@ function Main:Construct(Package)
         return ClosestPlayer
     end
 
+    local function CheckIfVisible(Target)
+        local Origin = game.Players.LocalPlayer.Character:WaitForChild("Head").Position
+        local Goal = Target.Position
+
+        local Direction = Goal - Origin
+        local Result = workspace:Raycast(Origin, Direction)
+
+        return Result.Instance ~= Target
+    end
+
     local BodyParts = {
         ["head"] = "Head",
         ["humanoidrootpart"] = "HumanoidRootPart"
@@ -321,6 +336,10 @@ function Main:Construct(Package)
 
                 if Target and Target.Character then
                     local BodyPart = Target.Character:FindFirstChild(BodyParts[Options.AimbotBodyPart.Value])
+
+                    if Toggles.WallCheck.Value and not CheckIfVisible(BodyPart) then
+                        return
+                    end
 
                     if BodyPart then
                         if Toggles.AimbotCheckIfScoping.Value then
