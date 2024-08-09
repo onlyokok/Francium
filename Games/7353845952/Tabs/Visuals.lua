@@ -192,7 +192,7 @@ function Visuals:Construct(Package)
         Text = "value",
         Default = 2,
         Min = 2,
-        Max = 10,
+        Max = 20,
         Rounding = 0,
         Compact = false,
     })
@@ -252,6 +252,42 @@ function Visuals:Construct(Package)
             Package.Helpers.Esp.Instance("MilitaryCrates", v, tostring(v))
         end
     end
+    
+    PointsOfInterest:AddToggle("Bodies", {
+        Text = "bodies",
+        Default = false,
+        Callback = function(Value)
+            Package.Helpers.Esp.SetGroupVisibility("Bodies", Value)
+        end
+    }):AddColorPicker("BodiesCratesColorPicker", {
+        Default = Color3.fromRGB(255, 255, 255),
+        Title = "color",
+        Callback = function(Value)
+            Package.Helpers.Esp.SetGroupColor("Bodies", Value)
+        end
+    })
+
+    local function GetPlayerNames()
+        local Names = {}
+    
+        for _,Player in next, game.Players:GetPlayers() do
+            table.insert(Names, Player.Name)
+        end
+    
+        return Names
+    end
+
+    for _,Item in next, workspace.DroppedItems:GetChildren() do
+        if table.find(GetPlayerNames(), Item.Name) then
+            Package.Helpers.Esp.Instance("Bodies", Item, string.format("%ss Body", Item.Name))
+        end
+    end
+
+    Package.Interface.Linoria:GiveSignal(workspace.DroppedItems.ChildAdded:Connect(function(Child)
+        if table.find(GetPlayerNames(), Item.Name) then
+            Package.Helpers.Esp.Instance("Bodies", Item, string.format("%ss Body", Item.Name))
+        end
+    end))
 
     for _,Player in next, game.Players:GetPlayers() do
         if Player ~= game.Players.LocalPlayer then
