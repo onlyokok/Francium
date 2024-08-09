@@ -326,7 +326,7 @@ function Main:Construct(Package)
         local Result = workspace:Raycast(Origin, Direction, Params)
     
         if Result then
-            return Result.Instance == Target
+            return Result.Instance ~= Target
         else
             return false
         end
@@ -346,8 +346,10 @@ function Main:Construct(Package)
                 if Target and Target.Character and game.Players.LocalPlayer.Character then
                     local BodyPart = Target.Character:FindFirstChild(BodyParts[Options.AimbotBodyPart.Value])
 
-                    if Toggles.WallCheck.Value and not CheckIfVisible(BodyPart) then
-                        return
+                    if Toggles.WallCheck.Value then
+                        if not CheckIfVisible(BodyPart) then
+                            return
+                        end
                     end
 
                     if BodyPart then
