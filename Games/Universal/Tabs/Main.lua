@@ -347,8 +347,7 @@ function Main:Construct(Package)
                     local BodyPart = Target.Character:FindFirstChild(BodyParts[Options.AimbotBodyPart.Value])
     
                     if BodyPart then
-                        -- Only proceed if WallCheck is disabled or the target is visible
-                        if not Options.WallCheck.Value or CheckIfVisible(BodyPart) then
+                        if not Toggles.WallCheck.Value or CheckIfVisible(BodyPart) then
                             if Toggles.AimbotCheckIfScoping.Value then
                                 if game:GetService("UserInputService"):IsMouseButtonPressed(Enum.UserInputType.MouseButton2) then
                                     if Toggles.AimbotSmoothing.Value then
