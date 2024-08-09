@@ -205,7 +205,7 @@ function Visuals:Construct(Package)
 
     local PointsOfInterest = self.Tab:AddRightGroupbox("points of interest")
 
-    World:AddToggle("Crates", {
+    PointsOfInterest:AddToggle("Crates", {
         Text = "crates",
         Default = false,
         Callback = function(Value)
@@ -220,7 +220,7 @@ function Visuals:Construct(Package)
     })
 
     for _,v in next, workspace.Containers:GetDescendants() do
-        if v:IsA("Model") and tostring(v):find("Box") or tostring(v):find("Crate") then
+        if v:IsA("Model") and tostring(v):find("Military") then
             Package.Helpers.Esp.Instance("Crates", v, tostring(v))
         end
     end
