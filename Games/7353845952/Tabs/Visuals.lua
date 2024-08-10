@@ -173,7 +173,7 @@ function Visuals:Construct(Package)
     }):AddKeyPicker('KeyPicker', {
         Default = 'None',
         SyncToggleState = true,
-        Mode = 'Hold', -- Modes: Always, Toggle, Hold
+        Mode = 'Hold',
         NoUI = true,
     })
 
@@ -233,7 +233,7 @@ function Visuals:Construct(Package)
                     workspace.CurrentCamera.FieldOfView = 70
                 end
             else
-                workspace.CurrentCamera.FieldOfView = Options.ZoomValue
+                workspace.CurrentCamera.FieldOfView = Options.ZoomValue.Value
             end
 
             if Toggles.Brightness.Value then
