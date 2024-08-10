@@ -393,6 +393,23 @@ function Main:Construct(Package)
             end
         end
     end))
+
+    local Misc = MakeSection("Misc", "Right")
+
+    Misc:AddToggle("NoDrown", {
+        Text = "no drown",
+        Default = false,
+    })
+
+    local Namecall; Namecall = hookmetamethod(game, "__namecall", function(self, ...)
+        if tostring(self) == "Drowning" then
+            if Toggles.NoDrown.Value then
+                return
+            end
+        end
+
+        return Namecall(self, ...)
+    end)
 end
 
 function Main:Setup(Package, Window)
