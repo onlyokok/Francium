@@ -252,6 +252,26 @@ function Visuals:Construct(Package)
             Package.Helpers.Esp.Instance("MilitaryCrates", v, tostring(v))
         end
     end
+
+    PointsOfInterest:AddToggle("Boxes", {
+        Text = "boxes",
+        Default = false,
+        Callback = function(Value)
+            Package.Helpers.Esp.SetGroupVisibility("Boxes", Value)
+        end
+    }):AddColorPicker("BoxesColorPicker", {
+        Default = Color3.fromRGB(255, 255, 255),
+        Title = "color",
+        Callback = function(Value)
+            Package.Helpers.Esp.SetGroupColor("Boxes", Value)
+        end
+    })
+
+    for _,v in next, workspace.Containers:GetDescendants() do
+        if v:IsA("Model") and tostring(v):find("Box") then
+            Package.Helpers.Esp.Instance("Boxes", v, tostring(v))
+        end
+    end
     
     PointsOfInterest:AddToggle("Bodies", {
         Text = "bodies",
