@@ -255,14 +255,6 @@ function Visuals:Construct(Package)
             else
                 game.Lighting.Brightness = 2
             end
-
-            if Toggles.ThirdPerson.Value then
-                game.Players.LocalPlayer.CameraMinZoomDistance = Options.ThirdPersonDistance.Value
-                game.Players.LocalPlayer.CameraMaxZoomDistance = Options.ThirdPersonDistance.Value
-            else
-                game.Players.LocalPlayer.CameraMinZoomDistance = 0
-                game.Players.LocalPlayer.CameraMaxZoomDistance = 0
-            end
         end
     end))
 
