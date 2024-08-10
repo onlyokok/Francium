@@ -218,20 +218,6 @@ function Visuals:Construct(Package)
 
     Misc:AddDivider()
 
-    Misc:AddToggle("ThirdPerson", {
-        Text = "third person",
-        Default = false,
-    })
-
-    Misc:AddSlider("ThirdPersonDistance", {
-        Text = "distance",
-        Default = 15,
-        Min = 1,
-        Max = 50,
-        Rounding = 0,
-        Compact = false,
-    })
-
     Package.Interface.Linoria:GiveTask(task.spawn(function()
         while task.wait() do
             if Toggles.Ambient.Value then
