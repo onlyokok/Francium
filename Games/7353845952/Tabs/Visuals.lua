@@ -258,7 +258,7 @@ function Visuals:Construct(Package)
         end
     end))
 
-    local PointsOfInterest = self.Tab:AddRightGroupbox("points of interest")
+    local PointsOfInterest = self.Tab:AddLeftGroupbox("points of interest")
 
     PointsOfInterest:AddToggle("MilitaryCrates", {
         Text = "military crates",
