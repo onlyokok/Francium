@@ -173,7 +173,7 @@ function Visuals:Construct(Package)
     }):AddKeyPicker('KeyPicker', {
         Default = 'None',
         SyncToggleState = true,
-        Mode = 'Hold',
+        Mode = 'Toggle',
         NoUI = true,
     })
 
