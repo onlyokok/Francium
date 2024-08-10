@@ -394,7 +394,7 @@ function Main:Construct(Package)
         end
     end))
 
-    local Misc = MakeSection("Misc", "Right")
+    local Misc = MakeSection("misc", "Right")
 
     Misc:AddToggle("NoDrown", {
         Text = "no drown",
