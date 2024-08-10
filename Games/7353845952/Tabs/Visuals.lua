@@ -186,8 +186,6 @@ function Visuals:Construct(Package)
         Compact = false,
     })
 
-    Misc:AddDivider()
-
     Misc:AddToggle("FieldOfView", {
         Text = "field of view",
         Default = false,
@@ -218,6 +216,22 @@ function Visuals:Construct(Package)
         Compact = false,
     })
 
+    Misc:AddDivider()
+
+    Misc:AddToggle("ThirdPerson", {
+        Text = "third person",
+        Default = false,
+    })
+
+    Misc:AddSlider("ThirdPersonDistance", {
+        Text = "distance",
+        Default = 15,
+        Min = 1,
+        Max = 50,
+        Rounding = 0,
+        Compact = false,
+    })
+
     Package.Interface.Linoria:GiveTask(task.spawn(function()
         while task.wait() do
             if Toggles.Ambient.Value then
@@ -240,6 +254,14 @@ function Visuals:Construct(Package)
                 game.Lighting.Brightness = Options.BrightnessValue.Value
             else
                 game.Lighting.Brightness = 2
+            end
+
+            if Toggles.ThirdPerson.Value then
+                game.Players.LocalPlayer.CameraMinZoomDistance = Options.ThirdPersonDistance.Value
+                game.Players.LocalPlayer.CameraMaxZoomDistance = Options.ThirdPersonDistance.Value
+            else
+                game.Players.LocalPlayer.CameraMinZoomDistance = 0
+                game.Players.LocalPlayer.CameraMaxZoomDistance = 0
             end
         end
     end))
