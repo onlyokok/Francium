@@ -272,6 +272,24 @@ function Visuals:Construct(Package)
             Package.Helpers.Esp.Instance("Boxes", v, tostring(v))
         end
     end
+
+    PointsOfInterest:AddToggle("Exits", {
+        Text = "exits",
+        Default = false,
+        Callback = function(Value)
+            Package.Helpers.Esp.SetGroupVisibility("Exits", Value)
+        end
+    }):AddColorPicker("ExitsColorPicker", {
+        Default = Color3.fromRGB(255, 255, 255),
+        Title = "color",
+        Callback = function(Value)
+            Package.Helpers.Esp.SetGroupColor("Exits", Value)
+        end
+    })
+
+    for _,Exit in next, workspace.NoCollision.ExitLocations:GetChildren() do
+        Package.Helpers.Esp.Instance("Exits", Exit, "Exit")
+    end
     
     PointsOfInterest:AddToggle("Bodies", {
         Text = "bodies",
