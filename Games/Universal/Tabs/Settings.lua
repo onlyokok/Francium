@@ -11,6 +11,8 @@ function Settings:Construct(Package)
         end
     })
 
+    Package.Interface.Linoria:SetWatermarkVisibility(false)
+
     Menu:AddToggle('ShowWatermark', {
         Text = 'show watermark',
         Default = false,
