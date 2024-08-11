@@ -8,7 +8,6 @@ return function(Package)
         ["Center"] = true,
         ["AutoShow"] = true,
         ["TabPadding"] = 8,
-        ["MenuFadeTime"] = 0.1
     })
 
     local Main = loadstring(game:HttpGet(`{Leaf}/Main.lua`))()
