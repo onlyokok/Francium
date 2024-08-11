@@ -19,7 +19,7 @@ Package.Interface.Addons = {
 
 Package.Interface.Linoria:Notify("Loaded Addons")
 
-Package.Interface.Helpers = {
+Package.Helpers = {
     Esp = loadstring(game:HttpGet(`{Modules}/Helpers/Esp.lua`))(),
 }
 

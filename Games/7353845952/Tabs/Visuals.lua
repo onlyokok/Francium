@@ -152,9 +152,9 @@ function Visuals:Construct(Package)
             Package.Helpers.Esp.Settings.Chams = Value
         end
     }):AddColorPicker("EspChamsColorPicker", {
-        Default = Color3.fromRGB(0, 255, 0),
+        Default = Color3.fromRGB(255, 0, 0),
         Title = "color",
-        Transparency = 0
+        Transparency = .25
     })
 
     Options.EspChamsColorPicker:OnChanged(function()
