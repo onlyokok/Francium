@@ -36,3 +36,5 @@ else
     Package.Interface.Linoria:Notify("Unable to find game, please wait while the universal script loads")
     loadstring(game:HttpGet(`{Games}/Universal/Main.lua`))()(Package)
 end
+
+Package.Interface.Linoria:Notify("Press LeftAlt to toggle the interface")

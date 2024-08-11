@@ -13,7 +13,7 @@ function Settings:Construct(Package)
 
     Menu:AddToggle('ShowWatermark', {
         Text = 'show watermark',
-        Default = true,
+        Default = false,
         Callback = function(Value)
             Package.Interface.Linoria:SetWatermarkVisibility(Value)
         end
