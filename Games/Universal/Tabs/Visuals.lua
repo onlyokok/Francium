@@ -145,6 +145,20 @@ function Visuals:Construct(Package)
         end
     })
 
+    Players:AddToggle('EspChams', {
+        Text = 'chams',
+        Default = true,
+        Callback = function(Value)
+            Package.Helpers.Esp.Settings.Chams = Value
+        end
+    }):AddColorPicker("EspChamsColorPicker", {
+        Default = Color3.fromRGB(0, 255, 0),
+        Title = "color",
+        Callback = function(Value)
+            Package.Helpers.Esp.Settings.ChamsColor = Value
+        end
+    })
+
     local World = self.Tab:AddRightGroupbox("world")
 
     local ColorCorrection = Instance.new("ColorCorrectionEffect", game.Lighting)

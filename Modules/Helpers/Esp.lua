@@ -16,7 +16,10 @@ local Esp = {
         HealthText = true,
         HealthTextColor = Color3.fromRGB(0, 255, 0),
         TextFont = 3,
-        TextSize = 12
+        TextSize = 12,
+        Chams = false,
+        ChamsColor = Color3.fromRGB(0, 255, 0),
+        ChamsTransparency = 0.25
     },
     Groups = {},
     Cache = {}
@@ -41,8 +44,24 @@ function Esp.New(Player)
     return self
 end
 
+local DrawingTypes = {
+    "Circle",
+    "Square",
+    "Triangle",
+    "Image",
+    "Quad",
+    "Text",
+    "Line"
+}
+
 function Esp:_Create(Type, Properties)
-    local drawing = Drawing.new(Type)
+    local drawing;
+
+    if table.find(DrawingTypes, Type) then
+        drawing = Drawing.new(Type)
+    else
+        drawing = Instance.new(Type)
+    end
 
     for Property, Value in next, Properties do
         drawing[Property] = Value
@@ -124,6 +143,14 @@ function Esp:Construct()
         Center = true,
         ZIndex = 3
     })
+
+    self.Drawings.Highlight = self:_Create("Highlight", {
+        Parent = game:GetService("CoreGui"),
+        DepthMode = Enum.HighlightDepthMode.AlwaysOnTop,
+        OutlineTransparency = 1,
+        FillColor = Esp.Settings.ChamsColor,
+        FillTransparency = Esp.Settings.ChamsTransparency,
+    })
 end
 
 function Esp:Render()
@@ -188,8 +215,10 @@ function Esp:Render()
                 self.Drawings.HealthText.Color = Esp.Settings.HealthTextColor
                 self.Drawings.HealthText.Font = Esp.Settings.TextFont
                 self.Drawings.HealthText.Text = `{math.round(HealthDecimal * 100)}%`
-            end
 
+                self.Drawings.Highlight.Transparency = Esp.Settings.ChamsTransparency
+                self.Drawings.Highlight.FillColor = Esp.Settings.ChamsColor
+            end
 
             self.Drawings.Box.Visible = Visible and Esp.Settings.Box
             self.Drawings.BoxOutline.Visible = Visible and Esp.Settings.Box
@@ -198,6 +227,8 @@ function Esp:Render()
             self.Drawings.Name.Visible = Visible and Esp.Settings.Name
             self.Drawings.Misc.Visible = Visible and Esp.Settings.Misc
             self.Drawings.HealthText.Visible = Visible and Esp.Settings.HealthText and HealthDecimal ~= 1
+            self.Drawings.Highlight.Enabled = Visible and Esp.Settings.Chams
+            self.Drawings.Highlight.Adornee = self.Player.Character
         else
             self.Drawings.Box.Visible = false
             self.Drawings.BoxOutline.Visible = false
@@ -206,6 +237,7 @@ function Esp:Render()
             self.Drawings.Name.Visible = false
             self.Drawings.Misc.Visible = false
             self.Drawings.HealthText.Visible = false
+            self.Drawings.Highlight.Enabled = false
         end
     end)
 end
