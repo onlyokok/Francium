@@ -216,7 +216,7 @@ function Esp:Render()
                 self.Drawings.HealthText.Font = Esp.Settings.TextFont
                 self.Drawings.HealthText.Text = `{math.round(HealthDecimal * 100)}%`
 
-                self.Drawings.Highlight.Transparency = Esp.Settings.ChamsTransparency
+                self.Drawings.Highlight.FillTransparency = Esp.Settings.ChamsTransparency
                 self.Drawings.Highlight.FillColor = Esp.Settings.ChamsColor
             end
 
