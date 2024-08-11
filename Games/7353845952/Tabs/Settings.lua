@@ -36,7 +36,7 @@ function Settings:Construct(Package)
 
     Package.Interface.Linoria.KeybindFrame.Visible = Toggles.ShowKeybinds.Value
 
-    Menu:AddLabel('menu keybind'):AddKeyPicker('MenuKeybind', { Default = 'LeftBracket', NoUI = true, Text = 'menu keybind' })
+    Menu:AddLabel('menu keybind'):AddKeyPicker('MenuKeybind', { Default = 'LeftAlt', NoUI = true, Text = 'menu keybind' })
     Package.Interface.Linoria.ToggleKeybind = Options.MenuKeybind
 end
 
