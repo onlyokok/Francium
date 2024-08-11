@@ -89,7 +89,7 @@ function Visuals:Construct(Package)
 
     Players:AddToggle("EspName", {
         Text = "name",
-        Default = true,
+        Default = false,
         Callback = function(Value)
             Package.Helpers.Esp.Settings.Name = Value
         end
@@ -103,7 +103,7 @@ function Visuals:Construct(Package)
 
     Players:AddToggle('EspDistance', {
         Text = 'distance',
-        Default = true,
+        Default = false,
         Callback = function(Value)
             Package.Helpers.Esp.Settings.ShowDistance = Value
         end
@@ -111,7 +111,7 @@ function Visuals:Construct(Package)
 
     Players:AddToggle('EspBox', {
         Text = 'box',
-        Default = true,
+        Default = false,
         Callback = function(Value)
             Package.Helpers.Esp.Settings.Box = Value
         end
@@ -125,7 +125,7 @@ function Visuals:Construct(Package)
 
     Players:AddToggle('EspHealthBar', {
         Text = 'health bar',
-        Default = true,
+        Default = false,
         Callback = function(Value)
             Package.Helpers.Esp.Settings.HealthBar = Value
         end
@@ -133,7 +133,7 @@ function Visuals:Construct(Package)
 
     Players:AddToggle('EspHealthText', {
         Text = 'health text',
-        Default = true,
+        Default = false,
         Callback = function(Value)
             Package.Helpers.Esp.Settings.HealthText = Value
         end
@@ -147,7 +147,7 @@ function Visuals:Construct(Package)
 
     Players:AddToggle('EspChams', {
         Text = 'chams',
-        Default = true,
+        Default = false,
         Callback = function(Value)
             Package.Helpers.Esp.Settings.Chams = Value
         end

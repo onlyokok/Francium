@@ -4,16 +4,16 @@ local Esp = {
         LimitDistance = false,
         MaxDistance = 9e9,
         CheckTeam = false,
-        UseTeamColor = true,
-        ShowDistance = true,
-        Box = true,
+        UseTeamColor = false,
+        ShowDistance = false,
+        Box = false,
         BoxColor = Color3.fromRGB(255, 255, 255),
-        HealthBar = true,
-        Name = true,
+        HealthBar = false,
+        Name = false,
         NameColor = Color3.new(1.000000, 1.000000, 1.000000),
         Misc = false,
         MiscColor = Color3.fromRGB(255, 255, 255),
-        HealthText = true,
+        HealthText = false,
         HealthTextColor = Color3.fromRGB(0, 255, 0),
         TextFont = 3,
         TextSize = 12,
@@ -217,7 +217,7 @@ function Esp:Render()
                 self.Drawings.HealthText.Text = `{math.round(HealthDecimal * 100)}%`
 
                 self.Drawings.Highlight.FillTransparency = Esp.Settings.ChamsTransparency
-                self.Drawings.Highlight.FillColor = Esp.Settings.ChamsColor
+                self.Drawings.Highlight.FillColor = Esp.Settings.UseTeamColor and self.Player.TeamColor.Color or Esp.Settings.ChamsColor
             end
 
             self.Drawings.Box.Visible = Visible and Esp.Settings.Box
