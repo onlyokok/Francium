@@ -396,7 +396,7 @@ function Main:Construct(Package)
 end
 
 function Main:Setup(Package, Window)
-    self.Tab = Window:AddTab("universal")
+    self.Tab = Window:AddTab("counter blox")
 
     self:Construct(Package)
 end
