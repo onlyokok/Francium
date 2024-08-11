@@ -154,10 +154,13 @@ function Visuals:Construct(Package)
     }):AddColorPicker("EspChamsColorPicker", {
         Default = Color3.fromRGB(0, 255, 0),
         Title = "color",
-        Callback = function(Value)
-            Package.Helpers.Esp.Settings.ChamsColor = Value
-        end
+        Transparency = 0
     })
+
+    Options.EspChamsColorPicker:OnChanged(function()
+        Package.Helpers.Esp.Settings.ChamsColor = Options.EspChamsColorPicker.Value
+        Package.Helpers.Esp.Settings.ChamsTransparency = Options.EspChamsColorPicker.Transparency
+    end)
 
     local World = self.Tab:AddRightGroupbox("world")
 
