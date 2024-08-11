@@ -162,11 +162,11 @@ function Visuals:Construct(Package)
         Package.Helpers.Esp.Settings.ChamsTransparency = Options.EspChamsColorPicker.Transparency
     end)
 
-    local World = self.Tab:AddRightGroupbox("world")
+    local Misc = self.Tab:AddRightGroupbox("world")
 
     local ColorCorrection = Instance.new("ColorCorrectionEffect", game.Lighting)
 
-    World:AddToggle("Ambient", {
+    Misc:AddToggle("Ambient", {
         Text = "ambient",
         Default = false,
     }):AddColorPicker("AmbientColorPicker", {
@@ -174,7 +174,7 @@ function Visuals:Construct(Package)
         Title = "color",
     })
 
-    World:AddToggle("DisableShadows", {
+    Misc:AddToggle("DisableShadows", {
         Text = "disable shadows",
         Default = false,
         Callback = function(Value)
@@ -182,14 +182,33 @@ function Visuals:Construct(Package)
         end
     })
 
-    World:AddDivider()
+    Misc:AddDivider()
 
-    World:AddToggle("FieldOfView", {
+    Misc:AddToggle("Zoom", {
+        Text = "zoom",
+        Default = false,
+    }):AddKeyPicker('KeyPicker', {
+        Default = 'None',
+        SyncToggleState = true,
+        Mode = 'Toggle',
+        NoUI = true,
+    })
+
+    Misc:AddSlider("ZoomValue", {
+        Text = "value",
+        Default = 40,
+        Min = 10,
+        Max = 70,
+        Rounding = 0,
+        Compact = false,
+    })
+
+    Misc:AddToggle("FieldOfView", {
         Text = "field of view",
         Default = false,
     })
 
-    World:AddSlider("FieldOfViewValue", {
+    Misc:AddSlider("FieldOfViewValue", {
         Text = "value",
         Default = 70,
         Min = 70,
@@ -197,6 +216,24 @@ function Visuals:Construct(Package)
         Rounding = 0,
         Compact = false,
     })
+
+    Misc:AddDivider()
+
+    Misc:AddToggle("Brightness", {
+        Text = "brightness",
+        Default = false,
+    })
+
+    Misc:AddSlider("BrightnessValue", {
+        Text = "value",
+        Default = 2,
+        Min = 2,
+        Max = 20,
+        Rounding = 0,
+        Compact = false,
+    })
+
+    Misc:AddDivider()
 
     Package.Interface.Linoria:GiveTask(task.spawn(function()
         while task.wait() do
@@ -206,17 +243,35 @@ function Visuals:Construct(Package)
                 ColorCorrection.TintColor = Color3.fromRGB(255, 255, 255)
             end
 
-            if Toggles.FieldOfView.Value then
-                workspace.CurrentCamera.FieldOfView = Options.FieldOfViewValue
+            if not Toggles.Zoom.Value then
+                if Toggles.FieldOfView.Value then
+                    workspace.CurrentCamera.FieldOfView = Options.FieldOfViewValue
+                else
+                    workspace.CurrentCamera.FieldOfView = 70
+                end
             else
-                workspace.CurrentCamera.FieldOfView = 70
+                workspace.CurrentCamera.FieldOfView = Options.ZoomValue.Value
+            end
+
+            if Toggles.Brightness.Value then
+                game.Lighting.Brightness = Options.BrightnessValue.Value
+            else
+                game.Lighting.Brightness = 2
             end
         end
     end))
 
     Package.Interface.Linoria:GiveSignal(workspace.CurrentCamera.Changed:Connect(function()
         if Toggles.FieldOfView.Value then
-            workspace.CurrentCamera.FieldOfView = Options.FieldOfViewValue.Value
+            if not Toggles.Zoom.Value then
+                workspace.CurrentCamera.FieldOfView = Options.FieldOfViewValue.Value
+            end
+        end
+    end))
+
+    Package.Interface.Linoria:GiveSignal(game.Lighting.Changed:Connect(function()
+        if Toggles.Brightness.Value then
+            game.Lighting.Brightness = Options.BrightnessValue.Value
         end
     end))
 
